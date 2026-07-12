@@ -1,0 +1,81 @@
+customer_id,customer_name,country,industry,onboarded_date,credit_limit_usd
+1,Coastal Distribution Sp. z o.o.,Turkey,Building materials,2024-08-23,250000
+2,United Logistics Ltd,Germany,Food & beverage,2024-07-19,250000
+3,Coastal Trading S.A.,Poland,Building materials,2024-08-19,250000
+4,Trident Exports PLC,Netherlands,Agricultural produce,2024-07-19,250000
+5,Global Logistics LLP,United Kingdom,Industrial machinery,2024-07-27,250000
+6,Summit Manufacturing OÜ,United States,Building materials,2024-08-29,250000
+7,Global Distribution LLC,United Kingdom,Agricultural produce,2024-08-29,250000
+8,United Industries PLC,Poland,Automotive parts,2024-08-06,250000
+9,Delta Trading GmbH,Egypt,Textiles & apparel,2024-07-31,250000
+10,United Supply PLC,United Kingdom,Industrial machinery,2024-08-07,250000
+11,Meridian Exports S.A.,Egypt,Automotive parts,2024-07-15,250000
+12,Baltic Industries LLP,United States,Agricultural produce,2024-08-11,250000
+13,Global Imports S.A.,UAE,Consumer electronics,2024-07-03,100000
+14,Vista Logistics LLP,Egypt,Food & beverage,2026-01-15,30000
+15,Global Distribution Ltd,Germany,Industrial machinery,2025-10-18,30000
+16,Global Manufacturing OÜ,UAE,Industrial machinery,2026-01-09,30000
+17,Trident Trading Sp. z o.o.,Germany,Consumer electronics,2025-03-06,30000
+18,Crown Group S.A.,Netherlands,Industrial machinery,2025-02-28,100000
+19,Delta Distribution S.A.,Egypt,Consumer electronics,2025-08-13,100000
+20,Summit Exports LLC,United States,Automotive parts,2024-12-01,30000
+21,Delta Supply LLP,Ukraine,Furniture,2024-11-15,100000
+22,Orion Group Ltd,United States,Food & beverage,2025-08-28,30000
+23,Orion Supply OÜ,Germany,Consumer electronics,2026-01-30,30000
+24,Summit Industries PLC,Ukraine,Consumer electronics,2026-02-14,30000
+25,Crown Group LLP,Ukraine,Furniture,2025-08-15,30000
+26,Central Exports GmbH,Egypt,Food & beverage,2024-12-01,30000
+27,Summit Exports PLC,United Kingdom,Building materials,2025-06-16,30000
+28,Baltic Trading Sp. z o.o.,Egypt,Consumer electronics,2025-02-24,30000
+29,Delta Supply Ltd,Ukraine,Industrial machinery,2025-08-25,30000
+30,Delta Group Sp. z o.o.,Germany,Pharmaceuticals,2025-02-06,30000
+31,Eastern Imports LLP,China,Chemicals,2025-05-29,100000
+32,Central Industries S.A.,Turkey,Building materials,2026-02-18,30000
+33,Global Group Sp. z o.o.,United States,Food & beverage,2024-09-26,30000
+34,Central Trading PLC,Egypt,Industrial machinery,2025-08-07,100000
+35,Baltic Commodities GmbH,Egypt,Furniture,2024-11-22,30000
+36,Trident Industries S.A.,United States,Industrial machinery,2025-02-07,100000
+37,Central Imports GmbH,Germany,Textiles & apparel,2024-12-21,100000
+38,Atlas Supply GmbH,United States,Food & beverage,2025-05-26,30000
+39,Prime Commodities OÜ,Egypt,Food & beverage,2025-07-07,30000
+40,Crown Exports Sp. z o.o.,Germany,Textiles & apparel,2026-02-11,30000
+41,Vector Manufacturing OÜ,China,Food & beverage,2026-03-01,30000
+42,Falcon Distribution LLC,Egypt,Chemicals,2025-10-02,100000
+43,Meridian Imports OÜ,Poland,Automotive parts,2025-03-12,30000
+44,Orion Logistics LLC,Turkey,Consumer electronics,2026-02-06,100000
+45,Global Distribution LLP,United Kingdom,Pharmaceuticals,2025-05-03,30000
+46,Crown Imports GmbH,Germany,Pharmaceuticals,2026-03-08,30000
+47,Delta Distribution Ltd,UAE,Textiles & apparel,2024-10-26,30000
+48,Nova Commodities Sp. z o.o.,United States,Consumer electronics,2025-12-04,100000
+49,Coastal Supply Sp. z o.o.,United States,Industrial machinery,2025-11-26,100000
+50,United Supply LLC,United Kingdom,Automotive parts,2024-07-30,30000
+51,Meridian Logistics Sp. z o.o.,Egypt,Industrial machinery,2024-12-07,30000
+52,Atlas Trading LLC,Poland,Pharmaceuticals,2025-07-13,30000
+53,Baltic Trading S.A.,United States,Industrial machinery,2025-01-15,100000
+54,Anchor Group S.A.,Germany,Consumer electronics,2025-08-26,100000
+55,Prime Manufacturing S.A.,United Kingdom,Chemicals,2024-07-26,100000
+56,Coastal Group Ltd,United States,Furniture,2024-08-02,30000
+57,Vector Industries LLC,Netherlands,Furniture,2025-08-06,100000
+58,Falcon Group S.A.,United States,Building materials,2025-11-23,30000
+59,Prime Group S.A.,Netherlands,Pharmaceuticals,2024-11-04,30000
+60,Meridian Distribution PLC,Ukraine,Pharmaceuticals,2024-08-31,100000
+61,Coastal Group Sp. z o.o.,Ukraine,Building materials,2025-11-27,30000
+62,Polar Group S.A.,Netherlands,Automotive parts,2026-01-23,30000
+63,Orion Distribution Sp. z o.o.,UAE,Chemicals,2024-11-15,30000
+64,Eastern Imports GmbH,Egypt,Pharmaceuticals,2024-12-09,30000
+65,Summit Industries OÜ,Poland,Pharmaceuticals,2025-03-01,30000
+66,Falcon Group OÜ,UAE,Industrial machinery,2025-02-27,30000
+67,Meridian Logistics Sp. z o.o.,United States,Textiles & apparel,2024-12-06,30000
+68,Summit Trading LLC,United States,Agricultural produce,2025-10-25,30000
+69,Vector Trading GmbH,Turkey,Consumer electronics,2025-11-01,30000
+70,United Industries Sp. z o.o.,China,Agricultural produce,2024-08-22,100000
+71,United Imports PLC,United States,Consumer electronics,2025-12-15,100000
+72,Nova Exports GmbH,Netherlands,Building materials,2026-01-17,30000
+73,Orion Trading Sp. z o.o.,Turkey,Food & beverage,2025-10-09,100000
+74,Eastern Distribution LLC,Germany,Industrial machinery,2025-02-23,30000
+75,Coastal Commodities PLC,China,Industrial machinery,2024-10-31,30000
+76,Atlas Commodities Sp. z o.o.,United States,Consumer electronics,2026-01-25,30000
+77,Baltic Commodities S.A.,United Kingdom,Chemicals,2025-08-17,100000
+78,Anchor Supply PLC,UAE,Furniture,2025-12-22,100000
+79,Polar Distribution GmbH,Turkey,Building materials,2024-10-27,100000
+80,Polar Commodities GmbH,Netherlands,Textiles & apparel,2025-04-11,30000

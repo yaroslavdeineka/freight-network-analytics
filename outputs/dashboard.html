@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Freight Network Analytics</title>
+<style>
+  :root {
+    /* validated reference palette (dataviz skill): warm paper surfaces,
+       one accent hue for series, reserved status colors for state */
+    --page:#f9f9f7; --panel:#fcfcfb; --ink:#141413; --ink2:#52514e;
+    --muted:#898781; --hair:#e7e6df; --grid:#e1e0d9; --track:#f0efec;
+    --accent:#2a78d6; --accent-deep:#1c5cab; --accent-soft:#9ec5f4;
+    --pos:#006300; --posbg:#e6f3e6; --neg:#d03b3b; --negbg:#fbeaea;
+    --warn:#8a6100; --warnbg:#fdf3dc; --nabg:#f0efec;
+    --topbar:#141413; --topink:#fcfcfb; --topmut:#a5a49c;
+  }
+  * { box-sizing:border-box; margin:0; }
+  html { scroll-behavior:smooth; }
+  body { background:var(--page); color:var(--ink);
+         font:14px/1.5 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+         -webkit-font-smoothing:antialiased; }
+
+  .top { position:sticky; top:0; z-index:20; background:var(--topbar);
+         color:var(--topink); display:flex; align-items:center;
+         gap:16px; padding:11px 22px; }
+  .top .name { font-weight:750; font-size:14.5px; white-space:nowrap;
+               letter-spacing:-.01em; }
+  .top .name::before { content:'⚓ '; font-size:13px; }
+  .top .meta { color:var(--topmut); font-size:12px; flex:1;
+               overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .langs { display:flex; gap:2px; }
+  .langs a { color:var(--topmut); text-decoration:none; cursor:pointer;
+             font-size:12px; font-weight:650; padding:3px 9px; border-radius:6px; }
+  .langs a:hover { color:var(--topink); }
+  .langs a.on { color:var(--topink); background:rgba(255,255,255,.14); }
+
+  .shell { display:flex; align-items:flex-start; }
+  nav { width:216px; flex-shrink:0; position:sticky; top:46px;
+        max-height:calc(100vh - 46px); overflow-y:auto; padding:16px 10px 30px; }
+  nav a { display:block; padding:4px 10px; border-radius:7px; color:var(--ink2);
+          text-decoration:none; font-size:12px; line-height:1.45; margin-bottom:1px; }
+  nav a:hover { background:#efeee9; color:var(--ink); }
+  nav .nh { font-size:10.5px; letter-spacing:.09em; text-transform:uppercase;
+            color:var(--muted); padding:14px 10px 5px; font-weight:650; }
+  @media (max-width:940px){ nav { display:none; } }
+
+  main { flex:1; min-width:0; padding:20px 22px 70px; }
+  .row { display:grid; gap:16px; margin-bottom:16px; }
+  .r2 { grid-template-columns:1.5fr 1fr; }
+  .r3 { grid-template-columns:1fr 1fr; }
+  @media (max-width:1100px){ .r2,.r3 { grid-template-columns:1fr; } }
+
+  .panel { background:var(--panel); border:1px solid rgba(20,20,19,.08);
+           border-radius:12px; padding:16px 18px; min-width:0;
+           box-shadow:0 1px 2px rgba(20,20,19,.04); }
+  .pt { font-size:13px; font-weight:700; margin-bottom:12px;
+        letter-spacing:-.005em; }
+  .pt small { color:var(--muted); font-weight:400; margin-left:6px; }
+
+  .kpis { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+          gap:0; padding:0; overflow:hidden; }
+  .kpi { padding:14px 18px 13px; border-right:1px solid var(--hair);
+         position:relative; }
+  .kpi::before { content:''; position:absolute; left:18px; top:14px;
+                 width:20px; height:3px; border-radius:2px; background:var(--accent);
+                 opacity:.85; }
+  .kpi:last-child { border-right:none; }
+  .kpi .l { color:var(--muted); font-size:10.5px; font-weight:650;
+            letter-spacing:.07em; text-transform:uppercase; margin-top:9px; }
+  .kpi .v { font-size:25px; font-weight:750; letter-spacing:-.02em;
+            margin-top:3px; }
+  .kpi .n { color:var(--muted); font-size:11.5px; margin-top:2px; }
+
+  .note { font-size:12.5px; color:var(--muted); margin-top:10px; }
+  .note b { color:var(--ink); }
+
+  table { width:100%; border-collapse:collapse; font-size:12.5px;
+          font-variant-numeric:tabular-nums; }
+  th { text-align:left; font-weight:650; color:var(--muted); font-size:10.5px;
+       letter-spacing:.05em; text-transform:uppercase;
+       padding:7px 8px; border-bottom:1px solid var(--grid); white-space:nowrap;
+       position:sticky; top:0; background:var(--panel); }
+  td { padding:5.5px 8px; border-bottom:1px solid var(--hair); white-space:nowrap; }
+  tbody tr:last-child td { border-bottom:none; }
+  tbody tr:hover td { background:#f4f3ee; }
+  td.num, th.num { text-align:right; }
+  .scroll { overflow:auto; max-height:430px; border:1px solid var(--hair);
+            border-radius:10px; }
+  .scroll table { font-size:12px; }
+  .scroll td, .scroll th { padding:4.5px 8px; }
+
+  .pill { display:inline-block; border-radius:999px; padding:1.5px 9px;
+          font-size:11px; font-weight:650; font-variant-numeric:tabular-nums; }
+  .up { color:var(--pos); background:var(--posbg); }
+  .dn { color:var(--neg); background:var(--negbg); }
+  .fl { color:var(--warn); background:var(--warnbg); }
+  .na { color:var(--muted); background:var(--nabg); font-weight:450; }
+  .rgn td { background:#f4f3ee; font-size:10.5px; letter-spacing:.09em;
+            text-transform:uppercase; color:var(--muted); font-weight:650;
+            border-bottom:none; }
+
+  .bars .brow { display:flex; align-items:center; gap:12px; margin-bottom:8px; }
+  .bars .lbl { width:130px; flex-shrink:0; font-size:12.5px; color:var(--ink2); }
+  .bars .track { flex:1; background:var(--track); border-radius:999px; }
+  .bars .bar { height:12px; background:var(--accent); border-radius:999px; }
+  .bars .bar.warn { background:var(--neg); }
+  .bars .val { width:140px; text-align:right; font-size:12px; color:var(--ink2);
+               font-variant-numeric:tabular-nums; white-space:nowrap; }
+  .bars.wide .lbl { width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .bars .bar.pos { background:#0ca30c; }
+  .bars .bar.neg { background:var(--neg); }
+
+  .itin { margin-bottom:14px; }
+  .itin h4 { font-size:13px; margin-bottom:6px; }
+  .itin .opt { display:flex; justify-content:space-between; gap:10px; padding:7px 11px;
+    border-radius:9px; font-size:12.5px; margin-bottom:5px; background:#f4f3ee; }
+  .itin .opt.best { background:var(--posbg); box-shadow:inset 3px 0 0 #0ca30c; }
+  .itin .opt .m { color:var(--muted); white-space:nowrap;
+                  font-variant-numeric:tabular-nums; }
+  .itin .opt.best .m { color:var(--pos); font-weight:650; }
+
+  .flag { display:flex; justify-content:space-between; gap:10px; padding:8px 11px;
+          background:var(--negbg); border-radius:9px; margin-bottom:6px;
+          font-size:12.5px; box-shadow:inset 3px 0 0 var(--neg); }
+  .flag b { color:var(--neg); }
+
+  .mh { display:flex; align-items:baseline; gap:10px; margin:30px 0 10px; }
+  .mh .n { font-size:11.5px; font-weight:700; color:var(--panel);
+           background:var(--ink); border-radius:7px; padding:2.5px 8px;
+           font-variant-numeric:tabular-nums; }
+  .mh h2 { font-size:15px; font-weight:700; letter-spacing:-.01em; }
+  .mh .src { color:var(--muted); font-size:11.5px; margin-left:auto; }
+  .sect { font-size:18px; font-weight:800; margin:34px 0 4px;
+          letter-spacing:-.015em; }
+  .sectd { color:var(--muted); font-size:13px; margin-bottom:16px; }
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="name">Freight Network Analytics</div>
+  <div class="meta" id="topMeta"></div>
+  <div class="langs" id="lang">
+    <a data-l="en" class="on">EN</a><a data-l="uk">УКР</a><a data-l="ru">РУС</a>
+  </div>
+</div>
+
+<div class="shell">
+<nav id="nav"></nav>
+<main>
+
+<div class="row"><div class="panel kpis" id="kpis" style="padding:0"></div></div>
+
+<div class="row r2" id="ovTrendRow">
+  <div class="panel"><div class="pt" id="pTrend"></div><div id="trend"></div>
+    <div class="note" id="noteTrend"></div>
+    <div class="pt" id="pOntime" style="margin-top:16px"></div><div id="ontime"></div></div>
+  <div class="panel"><div class="pt" id="pRegions"></div>
+    <div class="bars" id="regionBars"></div><div class="note" id="noteRegion"></div>
+    <div class="pt" id="pAging" style="margin-top:16px"></div>
+    <div class="bars" id="agingBars"></div><div class="note" id="noteAging"></div></div>
+</div>
+
+<div class="row r2" id="ovCharts">
+  <div class="panel"><div class="pt" id="pYoy"></div><div class="bars wide" id="yoyBars"></div></div>
+  <div class="panel"><div class="pt" id="pLanes"></div><div class="bars wide" id="laneBars"></div></div>
+</div>
+
+<div class="row" id="ovChoke">
+  <div class="panel"><div class="pt" id="pChoke"></div>
+    <div class="bars wide" id="chokeBars"></div>
+    <div class="note" id="noteChoke"></div></div>
+</div>
+
+<div class="row" id="ovPorts">
+  <div class="panel"><div class="pt" id="pPorts"></div>
+    <table id="portsTbl"><thead></thead><tbody></tbody></table>
+    <div class="note" id="notePorts"></div><div class="note" id="noteZero"></div></div>
+</div>
+
+<div class="row r3">
+  <div class="panel" id="routesPanel"><div class="pt" id="pRoutes"></div><div id="routes"></div></div>
+  <div class="panel"><div class="pt" id="pAml"></div><div id="aml"></div></div>
+</div>
+
+<div class="sect" id="modsTitle"></div>
+<div class="sectd" id="modsDesc"></div>
+<div id="modules"></div>
+
+</main>
+</div>
+
+<script>
+const D = {"generated": "2026-07-12 19:40", "fresh": "2026-06-26", "kpi": {"shipments": 5200, "customers": 77, "on_time_pct": 77.1, "avg_transit": 17.0, "revenue_usd": "8908690", "outstanding_usd": "792506", "overdue90_usd": "360765"}, "monthly": [{"m": "2024-07", "shipments": 15}, {"m": "2024-08", "shipments": 82}, {"m": "2024-09", "shipments": 221}, {"m": "2024-10", "shipments": 194}, {"m": "2024-11", "shipments": 212}, {"m": "2024-12", "shipments": 164}, {"m": "2025-01", "shipments": 88}, {"m": "2025-02", "shipments": 110}, {"m": "2025-03", "shipments": 154}, {"m": "2025-04", "shipments": 208}, {"m": "2025-05", "shipments": 180}, {"m": "2025-06", "shipments": 174}, {"m": "2025-07", "shipments": 178}, {"m": "2025-08", "shipments": 211}, {"m": "2025-09", "shipments": 318}, {"m": "2025-10", "shipments": 362}, {"m": "2025-11", "shipments": 366}, {"m": "2025-12", "shipments": 345}, {"m": "2026-01", "shipments": 190}, {"m": "2026-02", "shipments": 201}, {"m": "2026-03", "shipments": 389}, {"m": "2026-04", "shipments": 366}, {"m": "2026-05", "shipments": 345}, {"m": "2026-06", "shipments": 127}], "regions": [{"region": "Asia", "usd": 5571579.0}, {"region": "Europe", "usd": 2400193.0}, {"region": "MEA", "usd": 936918.0}], "ports": [{"code": "SGSIN", "name": "Singapore", "country": "Singapore", "region": "Asia", "cbm180": 1263.5, "kt_day": 2347.0, "yoy": -0.6}, {"code": "CNSHA", "name": "Shanghai", "country": "China", "region": "Asia", "cbm180": 11922.86, "kt_day": 1211.1, "yoy": -22.9}, {"code": "NLRTM", "name": "Rotterdam", "country": "Netherlands", "region": "Europe", "cbm180": 15122.94, "kt_day": 932.2, "yoy": -4.7}, {"code": "AEJEA", "name": "Jebel Ali", "country": "UAE", "region": "MEA", "cbm180": 831.77, "kt_day": 692.4, "yoy": 13.7}, {"code": "USLGB", "name": "Long Beach", "country": "United States", "region": "Americas", "cbm180": 4461.82, "kt_day": 554.0, "yoy": 3.0}, {"code": "INNSA", "name": "Nhava Sheva", "country": "India", "region": "Asia", "cbm180": 2918.56, "kt_day": 458.8, "yoy": 5.8}, {"code": "BRSSZ", "name": "Santos", "country": "Brazil", "region": "Americas", "cbm180": 0.0, "kt_day": 449.3, "yoy": 2.2}, {"code": "KRPUS", "name": "Busan", "country": "South Korea", "region": "Asia", "cbm180": 2176.16, "kt_day": 410.5, "yoy": -3.4}, {"code": "DEHAM", "name": "Hamburg", "country": "Germany", "region": "Europe", "cbm180": 8437.27, "kt_day": 375.0, "yoy": 6.8}, {"code": "USNYC", "name": "New York", "country": "United States", "region": "Americas", "cbm180": 2867.61, "kt_day": 296.9, "yoy": -2.5}, {"code": "PLGDN", "name": "Gdansk", "country": "Poland", "region": "Europe", "cbm180": 1521.18, "kt_day": 235.1, "yoy": 6.8}, {"code": "EGALY", "name": "Alexandria", "country": "Egypt", "region": "MEA", "cbm180": 1521.18, "kt_day": 162.8, "yoy": 3.0}, {"code": "CNSZX", "name": "Shenzhen", "country": "China", "region": "Asia", "cbm180": 3387.23, "kt_day": 118.8, "yoy": -7.0}, {"code": "TRMER", "name": "Mersin", "country": "Turkey", "region": "MEA", "cbm180": 2061.41, "kt_day": 85.1, "yoy": 2.6}, {"code": "GBFXT", "name": "Felixstowe", "country": "United Kingdom", "region": "Europe", "cbm180": 2491.98, "kt_day": 68.7, "yoy": -2.1}, {"code": "UAODS", "name": "Odesa", "country": "Ukraine", "region": "Europe", "cbm180": 7973.63, "kt_day": 0.0, "yoy": null}], "spark": {"AEJEA": [1148304.0, 3728991.0, 3727241.0, 3549863.0, 3769604.0, 3572751.0, 4543337.0, 4136160.0, 3552292.0, 9071431.0, 1708433.0, 0.0, 967894.0, 2571852.0, 1913480.0, 11230344.0, 3770747.0, 6608634.0, 5024553.0, 4610655.0, 1507326.0, 5894623.0, 923647.0, 22351.0, 473014.0, 8426146.0, 11910285.0], "BRSSZ": [806125.0, 2533436.0, 2176062.0, 2311105.0, 2283708.0, 2652239.0, 2237646.0, 2490009.0, 3171536.0, 2786455.0, 2986428.0, 2678917.0, 3473438.0, 3269641.0, 3193806.0, 2944139.0, 3556107.0, 3324254.0, 2437824.0, 3536915.0, 3120577.0, 2667827.0, 3412835.0, 3430724.0, 3408440.0, 3179812.0, 1943376.0], "CNSHA": [3198687.0, 10680536.0, 11411933.0, 10374381.0, 12653706.0, 10730081.0, 11466900.0, 9230645.0, 9550444.0, 10689094.0, 10941760.0, 9554676.0, 9955192.0, 10470182.0, 9345705.0, 9788221.0, 10223007.0, 8998236.0, 9706747.0, 8202869.0, 7670058.0, 7708025.0, 7235903.0, 7480587.0, 8293567.0, 7435040.0, 5657276.0], "CNSZX": [210572.0, 924908.0, 794642.0, 860080.0, 913587.0, 789571.0, 792266.0, 886683.0, 773033.0, 715847.0, 518591.0, 649910.0, 859579.0, 909330.0, 675585.0, 854661.0, 777314.0, 846077.0, 833730.0, 920976.0, 731801.0, 792984.0, 899430.0, 886577.0, 877001.0, 835056.0, 614556.0], "DEHAM": [553008.0, 1800510.0, 1525372.0, 2659919.0, 2445534.0, 2239447.0, 2253162.0, 2781565.0, 2909659.0, 2400526.0, 2900018.0, 2082094.0, 2799672.0, 2492991.0, 1715452.0, 3239272.0, 2645795.0, 3093108.0, 1991487.0, 3334258.0, 2173885.0, 2700755.0, 2966858.0, 2543141.0, 2542300.0, 2705612.0, 1820092.0], "EGALY": [127995.0, 1221471.0, 1075127.0, 1039518.0, 1404829.0, 1067404.0, 1086374.0, 1216903.0, 1135042.0, 915468.0, 1349251.0, 1046866.0, 1061222.0, 1644100.0, 1123667.0, 1486265.0, 1237300.0, 1110153.0, 1453928.0, 1323928.0, 1241354.0, 1058199.0, 811824.0, 1270931.0, 774916.0, 966913.0, 678214.0], "GBFXT": [177606.0, 489571.0, 317513.0, 550038.0, 675801.0, 412984.0, 428848.0, 435696.0, 614059.0, 564386.0, 529305.0, 355176.0, 705446.0, 482299.0, 493646.0, 420704.0, 514916.0, 521312.0, 366904.0, 497787.0, 434785.0, 533478.0, 565354.0, 307574.0, 362329.0, 689729.0, 389081.0], "INNSA": [916271.0, 2444126.0, 2474934.0, 2208519.0, 2642276.0, 2319511.0, 2759262.0, 2259843.0, 2495971.0, 2730493.0, 2052300.0, 2707685.0, 2766410.0, 2837653.0, 2315036.0, 2700563.0, 3134090.0, 2811305.0, 5131859.0, 3368828.0, 3414386.0, 3257671.0, 3753014.0, 3579942.0, 3070808.0, 2721185.0, 1852354.0], "KRPUS": [853902.0, 2747455.0, 2748097.0, 3008982.0, 2205303.0, 2705685.0, 2444396.0, 3140565.0, 2431103.0, 3199764.0, 2975753.0, 3202787.0, 2717963.0, 2946754.0, 2623888.0, 2644518.0, 3152565.0, 3424428.0, 2933483.0, 2822871.0, 2712772.0, 2671391.0, 2920609.0, 2773429.0, 3080453.0, 2790156.0, 1968058.0], "NLRTM": [1925910.0, 5860605.0, 6426346.0, 6673437.0, 6311390.0, 5144228.0, 6114510.0, 6371909.0, 6931858.0, 6977891.0, 5548783.0, 7232453.0, 6880265.0, 7252552.0, 6921780.0, 6061981.0, 6460560.0, 7364070.0, 5879722.0, 6632068.0, 6664459.0, 7644995.0, 6404323.0, 5446826.0, 6699394.0, 6271103.0, 4701881.0], "PLGDN": [335918.0, 1385921.0, 1199321.0, 1962313.0, 1292492.0, 1361849.0, 986044.0, 1925172.0, 2100203.0, 1682958.0, 1572671.0, 2211470.0, 1539100.0, 1575632.0, 2009933.0, 1642411.0, 2097148.0, 1269572.0, 1813579.0, 1459703.0, 1523087.0, 1428337.0, 1582588.0, 1725874.0, 1443550.0, 1653062.0, 1217065.0], "SGSIN": [4391415.0, 16227351.0, 16238362.0, 17475966.0, 18316023.0, 17790274.0, 16616888.0, 16193002.0, 17270000.0, 16829579.0, 17137779.0, 16868816.0, 16129833.0, 16655345.0, 16844330.0, 15904882.0, 16243328.0, 16711500.0, 17340884.0, 17643212.0, 16820732.0, 15978624.0, 15891157.0, 15964104.0, 15054445.0, 15635873.0, 12706976.0], "TRMER": [216336.0, 470038.0, 244325.0, 627641.0, 586960.0, 797337.0, 702270.0, 700292.0, 813715.0, 636312.0, 375476.0, 525863.0, 229964.0, 647421.0, 645867.0, 738414.0, 601133.0, 469816.0, 688713.0, 380623.0, 525185.0, 606886.0, 595296.0, 689941.0, 535947.0, 585504.0, 561136.0], "UAODS": [0.0, 0.0, 0.0, 0.0, 0.0, 1010.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "USLGB": [743079.0, 4033246.0, 4606986.0, 2857514.0, 3621707.0, 3403622.0, 3469492.0, 3987514.0, 4002730.0, 3689031.0, 3725111.0, 3263272.0, 3244788.0, 3881383.0, 4385429.0, 3654738.0, 4129845.0, 3572574.0, 4315849.0, 3319895.0, 4594326.0, 3522863.0, 4022762.0, 3268522.0, 4106551.0, 3829139.0, 2656570.0], "USNYC": [364827.0, 1738002.0, 2114702.0, 1952975.0, 1564069.0, 1759366.0, 1765942.0, 1994957.0, 1696143.0, 2005314.0, 2344373.0, 2209801.0, 2067414.0, 2193130.0, 1543848.0, 2035601.0, 1685852.0, 1608075.0, 2369272.0, 2115558.0, 2195723.0, 2512199.0, 2138558.0, 2300638.0, 2008740.0, 2398832.0, 1419405.0]}, "aging": [{"bucket": "Not yet due", "usd": 326318.0}, {"bucket": "1\u201330 days", "usd": 64470.0}, {"bucket": "31\u201360 days", "usd": 24473.0}, {"bucket": "61\u201390 days", "usd": 16481.0}, {"bucket": "90+ days", "usd": 360765.0}], "choke": [{"name": "Dover Strait", "share": 71.3, "yoy": -6.0}, {"name": "Gibraltar Strait", "share": 63.0, "yoy": -6.6}, {"name": "Bab el-Mandeb Strait", "share": 52.3, "yoy": -13.0}, {"name": "Suez Canal", "share": 52.3, "yoy": -8.7}, {"name": "Malacca Strait", "share": 41.4, "yoy": -3.5}, {"name": "Bosporus Strait", "share": 14.5, "yoy": 1.3}, {"name": "Oresund Strait", "share": 13.1, "yoy": -6.7}, {"name": "Strait of Hormuz", "share": 10.9, "yoy": -93.2}], "routes13": [{"request": "Shanghai \u2192 Kyiv", "rank": 1, "route": "Shanghai \u2192 Alexandria \u2192 Odesa \u21d2 Kyiv", "mode": "truck", "days": 28, "usd": 115.9}, {"request": "Shanghai \u2192 Kyiv", "rank": 2, "route": "Shanghai \u2192 Alexandria \u2192 Mersin \u2192 Odesa \u21d2 Kyiv", "mode": "truck", "days": 31, "usd": 124.3}, {"request": "Shanghai \u2192 Kyiv", "rank": 3, "route": "Shanghai \u2192 Singapore \u2192 Alexandria \u2192 Odesa \u21d2 Kyiv", "mode": "truck", "days": 32, "usd": 129.6}, {"request": "Shanghai \u2192 Poltava", "rank": 1, "route": "Shanghai \u2192 Alexandria \u2192 Odesa \u21d2 Poltava", "mode": "truck", "days": 28, "usd": 120.9}, {"request": "Shanghai \u2192 Poltava", "rank": 2, "route": "Shanghai \u2192 Alexandria \u2192 Mersin \u2192 Odesa \u21d2 Poltava", "mode": "truck", "days": 31, "usd": 129.3}, {"request": "Shanghai \u2192 Poltava", "rank": 3, "route": "Shanghai \u2192 Singapore \u2192 Alexandria \u2192 Odesa \u21d2 Poltava", "mode": "truck", "days": 32, "usd": 134.6}, {"request": "Shenzhen \u2192 Poltava", "rank": 1, "route": "Shenzhen \u2192 Singapore \u2192 Alexandria \u2192 Odesa \u21d2 Poltava", "mode": "truck", "days": 30, "usd": 129.3}, {"request": "Shenzhen \u2192 Poltava", "rank": 2, "route": "Shenzhen \u2192 Shanghai \u2192 Alexandria \u2192 Odesa \u21d2 Poltava", "mode": "truck", "days": 33, "usd": 128.9}, {"request": "Shenzhen \u2192 Poltava", "rank": 3, "route": "Shenzhen \u2192 Singapore \u2192 Hamburg \u2192 Gdansk \u21d2 Poltava", "mode": "rail", "days": 38, "usd": 127.3}], "aml": [{"screen": "A \u00b7 STRUCTURING", "customer": "Baltic Commodities S.A.", "invoice": "INV-2025-90002", "amount": 3.0}, {"screen": "A \u00b7 STRUCTURING", "customer": "Baltic Commodities S.A.", "invoice": "INV-2025-90003", "amount": 4.0}, {"screen": "B \u00b7 DUPLICATE BILLING", "customer": "Crown Exports Sp. z o.o.", "invoice": "INV-2026-00092", "amount": 2.0}, {"screen": "B \u00b7 DUPLICATE BILLING", "customer": "Crown Exports Sp. z o.o.", "invoice": "INV-2025-95001", "amount": 2.0}, {"screen": "B \u00b7 DUPLICATE BILLING", "customer": "Global Manufacturing O\u00dc", "invoice": "INV-2026-04429", "amount": 2.0}, {"screen": "B \u00b7 DUPLICATE BILLING", "customer": "Global Manufacturing O\u00dc", "invoice": "INV-2025-95000", "amount": 2.0}, {"screen": "B \u00b7 DUPLICATE BILLING", "customer": "United Industries PLC", "invoice": "INV-2024-03163", "amount": 2.0}, {"screen": "B \u00b7 DUPLICATE BILLING", "customer": "United Industries PLC", "invoice": "INV-2025-95002", "amount": 2.0}], "lanes": [{"l": "Shanghai \u2192 Rotterdam", "n": 673}, {"l": "Shanghai \u2192 Long Beach", "n": 506}, {"l": "Shenzhen \u2192 Hamburg", "n": 505}, {"l": "Odesa \u2192 Hamburg", "n": 452}, {"l": "Odesa \u2192 Rotterdam", "n": 423}, {"l": "Rotterdam \u2192 New York", "n": 418}, {"l": "Nhava Sheva \u2192 Rotterdam", "n": 405}, {"l": "Shanghai \u2192 Felixstowe", "n": 357}, {"l": "Odesa \u2192 Shanghai", "n": 316}, {"l": "Mersin \u2192 Hamburg", "n": 310}], "ontime": [{"m": "2024-07", "pct": 80.0}, {"m": "2024-08", "pct": 80.5}, {"m": "2024-09", "pct": 81.0}, {"m": "2024-10", "pct": 79.4}, {"m": "2024-11", "pct": 83.0}, {"m": "2024-12", "pct": 83.5}, {"m": "2025-01", "pct": 85.2}, {"m": "2025-02", "pct": 80.0}, {"m": "2025-03", "pct": 78.6}, {"m": "2025-04", "pct": 81.3}, {"m": "2025-05", "pct": 78.9}, {"m": "2025-06", "pct": 76.4}, {"m": "2025-07", "pct": 83.1}, {"m": "2025-08", "pct": 82.0}, {"m": "2025-09", "pct": 51.6}, {"m": "2025-10", "pct": 45.0}, {"m": "2025-11", "pct": 79.2}, {"m": "2025-12", "pct": 82.9}, {"m": "2026-01", "pct": 82.1}, {"m": "2026-02", "pct": 83.1}, {"m": "2026-03", "pct": 82.8}, {"m": "2026-04", "pct": 79.8}, {"m": "2026-05", "pct": 84.3}, {"m": "2026-06", "pct": 87.1}], "modules": [{"num": "01", "title": "01_executive_kpis", "cols": ["month", "shipments", "mom_change", "mom_growth_pct", "total_cbm", "cumulative_cbm", "shipments_3mo_avg", "active_customers", "on_time_pct", "avg_transit_days"], "rows": [["2024-07", "15", "", "", "276.1", "276.1", "15", "6", "80", "16.9"], ["2024-08", "82", "67", "446.7", "1458.6", "1734.7", "48.5", "13", "80.5", "16.6"], ["2024-09", "221", "139", "169.5", "4018.2", "5752.9", "106", "18", "81", "16.7"], ["2024-10", "194", "-27", "-12.2", "3529.3", "9282.2", "165.7", "18", "79.4", "16.8"], ["2024-11", "212", "18", "9.3", "4424.3", "13706.5", "209", "26", "83", "15.8"], ["2024-12", "164", "-48", "-22.6", "2992.4", "16698.9", "190", "26", "83.5", "16.3"], ["2025-01", "88", "-76", "-46.3", "1753.9", "18452.8", "154.7", "28", "85.2", "16.3"], ["2025-02", "110", "22", "25", "1873.9", "20326.7", "120.7", "30", "80", "16.4"], ["2025-03", "154", "44", "40", "2543.4", "22870.1", "117.3", "38", "78.6", "17.2"], ["2025-04", "208", "54", "35.1", "3483.1", "26353.2", "157.3", "38", "81.3", "16.5"], ["2025-05", "180", "-28", "-13.5", "3312.4", "29665.6", "180.7", "40", "78.9", "16.5"], ["2025-06", "174", "-6", "-3.3", "3425.0", "33090.6", "187.3", "38", "76.4", "16.8"], ["2025-07", "178", "4", "2.3", "3720.7", "36811.3", "177.3", "45", "83.1", "16.8"], ["2025-08", "211", "33", "18.5", "3823.3", "40634.6", "187.7", "48", "82", "16.7"], ["2025-09", "318", "107", "50.7", "6150.5", "46785.1", "235.7", "52", "51.6", "20.3"], ["2025-10", "362", "44", "13.8", "6837.3", "53622.4", "297", "58", "45", "20.8"], ["2025-11", "366", "4", "1.1", "6808.1", "60430.5", "348.7", "60", "79.2", "16.7"], ["2025-12", "345", "-21", "-5.7", "6601.7", "67032.2", "357.7", "64", "82.9", "16.1"], ["2026-01", "190", "-155", "-44.9", "3574.2", "70606.4", "300.3", "59", "82.1", "16.6"], ["2026-02", "201", "11", "5.8", "3521.9", "74128.3", "245.3", "61", "83.1", "15.8"], ["2026-03", "389", "188", "93.5", "7505.6", "81633.9", "260", "69", "82.8", "15.8"], ["2026-04", "366", "-23", "-5.9", "6951.1", "88585.0", "318.7", "68", "79.8", "16.8"], ["2026-05", "345", "-21", "-5.7", "6172.7", "94757.7", "366.7", "63", "84.3", "16.7"], ["2026-06", "127", "-218", "-63.2", "2860.6", "97618.3", "279.3", "51", "87.1", "12.7"]], "src": "analytics/01_executive_kpis.sql"}, {"num": "02", "title": "02_route_pathfinding", "cols": ["routing", "legs", "modes", "transit_days", "cost_per_cbm_usd", "cost_rank", "speed_rank"], "rows": [["Odesa \u2192 Alexandria \u2192 Shanghai", "2", "sea / sea", "21", "78.00", "1", "1"], ["Odesa \u2192 Mersin \u2192 Alexandria \u2192 Shanghai", "3", "sea / sea / sea", "21", "86.00", "2", "1"], ["Odesa \u2192 Alexandria \u2192 Singapore \u2192 Shanghai", "3", "sea / sea / sea", "22", "91.00", "3", "3"], ["Odesa \u2192 Gdansk \u2192 Rotterdam \u2192 Shanghai", "3", "rail / sea / sea", "35", "122.65", "4", "4"], ["Odesa \u2192 Mersin \u2192 Rotterdam \u2192 Shanghai", "3", "sea / sea / sea", "39", "124.00", "5", "5"], ["Odesa \u2192 Alexandria \u2192 Rotterdam \u2192 Shanghai", "3", "sea / sea / sea", "40", "127.00", "6", "6"]], "src": "analytics/02_route_pathfinding.sql"}, {"num": "03", "title": "03_transit_bottlenecks", "cols": ["stage", "location", "observations", "median_days", "p90_days", "worst_case_days", "p90_to_median_ratio"], "rows": [["DEPARTED \u2192 TRANSSHIPMENT_IN", "Rotterdam", "727", "7.96", "28.08", "28.4", "3.5"], ["DEPARTED \u2192 ARRIVED", "Felixstowe", "91", "27.58", "27.88", "27.9", "1"], ["TRANSSHIPMENT_OUT \u2192 ARRIVED", "Rotterdam", "1,738", "13.08", "18.5", "32.7", "1.4"], ["TRANSSHIPMENT_OUT \u2192 ARRIVED", "Hamburg", "969", "9.67", "17.13", "21.8", "1.8"], ["TRANSSHIPMENT_OUT \u2192 ARRIVED", "Shanghai", "311", "14.75", "16.96", "20.7", "1.1"], ["DEPARTED \u2192 ARRIVED", "Long Beach", "505", "14.58", "16.54", "19.6", "1.1"], ["TRANSSHIPMENT_OUT \u2192 ARRIVED", "Long Beach", "208", "12.6", "14.73", "17.3", "1.2"], ["DEPARTED \u2192 ARRIVED", "New York", "418", "10.54", "12.54", "15.6", "1.2"], ["DEPARTED \u2192 TRANSSHIPMENT_IN", "Mersin", "582", "3.08", "9.04", "9.4", "2.9"], ["DEPARTED \u2192 ARRIVED", "Hamburg", "68", "3.92", "7.75", "7.9", "2"], ["BOOKED \u2192 CARGO_RECEIVED", "Singapore", "210", "3.23", "6.04", "7.5", "1.9"], ["TRANSSHIPMENT_IN \u2192 TRANSSHIPMENT_OUT", "Rotterdam", "583", "1.25", "6", "13.7", "4.8"], ["DEPARTED \u2192 TRANSSHIPMENT_IN", "Singapore", "1,437", "4.83", "5.92", "6.4", "1.2"], ["BOOKED \u2192 CARGO_RECEIVED", "Mersin", "307", "3.33", "5.76", "8.5", "1.7"], ["BOOKED \u2192 CARGO_RECEIVED", "Alexandria", "204", "3.13", "5.61", "7.6", "1.8"]], "src": "analytics/03_transit_bottlenecks.sql"}, {"num": "04", "title": "04_customer_segmentation", "cols": ["segment", "customers", "shipments", "revenue_usd", "revenue_share_pct", "class_a_customers", "class_b_customers", "class_c_customers"], "rows": [["Champion", "16", "2,658", "4639292", "52.4", "16", "0", "0"], ["Core", "23", "957", "1555907", "17.6", "8", "9", "6"], ["At Risk (high value)", "11", "613", "1116861", "12.6", "11", "0", "0"], ["Dormant", "14", "413", "667403", "7.5", "2", "9", "3"], ["Loyal", "8", "306", "480081", "5.4", "5", "3", "0"], ["New / Developing", "8", "253", "402368", "4.5", "1", "4", "3"]], "src": "analytics/04_customer_segmentation.sql"}, {"num": "05", "title": "05_cohort_retention", "cols": ["cohort", "size", "q0", "q1_pct", "q2_pct", "q3_pct", "q4_pct", "q5_pct", "q6_pct"], "rows": [["2024-Q3", "19", "18", "100", "100", "95", "95", "95", "95"], ["2024-Q4", "13", "12", "100", "100", "100", "92", "77", "85"], ["2025-Q1", "10", "9", "100", "100", "90", "90", "70", ""], ["2025-Q2", "5", "5", "100", "100", "100", "60", "", ""], ["2025-Q3", "10", "10", "100", "100", "90", "", "", ""], ["2025-Q4", "11", "11", "100", "100", "", "", "", ""], ["2026-Q1", "12", "12", "100", "", "", "", "", ""]], "src": "analytics/05_cohort_retention.sql"}, {"num": "06", "title": "06_fx_normalized_revenue", "cols": ["region", "quarter", "invoices", "revenue_usd", "avg_invoice_usd", "currencies_billed"], "rows": [["Asia", "2024-Q3", "167", "281757", "1,687", "2"], ["Asia", "2024-Q4", "319", "615295", "1,929", "2"], ["Asia", "2025-Q1", "200", "326533", "1,633", "2"], ["Asia", "2025-Q2", "299", "568243", "1,900", "2"], ["Asia", "2025-Q3", "407", "780894", "1,919", "2"], ["Asia", "2025-Q4", "584", "1136363", "1,946", "2"], ["Asia", "2026-Q1", "436", "805012", "1,846", "2"], ["Asia", "2026-Q2", "505", "1057481", "2,094", "2"], ["Asia", "subtotal", "2,917", "5571579", "1,910", "2"], ["Europe", "2024-Q3", "89", "130655", "1,468", "3"], ["Europe", "2024-Q4", "178", "267523", "1,503", "3"], ["Europe", "2025-Q1", "102", "149868", "1,469", "3"], ["Europe", "2025-Q2", "190", "289703", "1,525", "3"], ["Europe", "2025-Q3", "202", "312763", "1,548", "3"], ["Europe", "2025-Q4", "347", "512522", "1,477", "3"], ["Europe", "2026-Q1", "237", "351781", "1,484", "3"], ["Europe", "2026-Q2", "265", "385378", "1,454", "3"], ["Europe", "subtotal", "1,610", "2400193", "1,491", "3"], ["MEA", "2024-Q3", "47", "64539", "1,373", "2"], ["MEA", "2024-Q4", "74", "105731", "1,429", "2"], ["MEA", "2025-Q1", "53", "74053", "1,397", "2"], ["MEA", "2025-Q2", "76", "75487", "993", "2"], ["MEA", "2025-Q3", "85", "151561", "1,783", "2"], ["MEA", "2025-Q4", "133", "183555", "1,380", "2"], ["MEA", "2026-Q1", "113", "152220", "1,347", "2"], ["MEA", "2026-Q2", "99", "129772", "1,311", "2"], ["MEA", "subtotal", "680", "936918", "1,378", "2"], ["\u2500\u2500 TOTAL \u2500\u2500", "", "5,207", "8908690", "1,711", "4"]], "src": "analytics/06_fx_normalized_revenue.sql"}, {"num": "07", "title": "07_receivables_aging", "cols": ["aging_bucket", "invoices", "outstanding_usd", "share_pct", "customers_affected"], "rows": [["1 \u00b7 Not yet due", "117", "224003", "28.3", "51"], ["2 \u00b7 1-30 days overdue", "78", "146791", "18.5", "30"], ["3 \u00b7 31-60 days overdue", "26", "32315", "4.1", "9"], ["4 \u00b7 61-90 days overdue", "13", "17654", "2.2", "7"], ["5 \u00b7 90+ days overdue", "225", "371743", "46.9", "10"]], "src": "analytics/07_receivables_aging.sql"}, {"num": "07b", "title": "PAYMENT DISCIPLINE & DSO \u2014 WHO ACTUALLY PAYS?", "cols": ["customer", "invoices", "paid", "avg_days_late", "paid_late_pct", "outstanding_usd", "overdue_90d_usd", "dso_days"], "rows": [["\u2500\u2500 ALL CUSTOMERS \u2500\u2500", "5,207", "4,748", "6", "46.3", "792,506", "360,765", "47"], ["Meridian Exports S.A.", "252", "173", "34.1", "96.5", "132,884", "101,979", "179"], ["Global Logistics LLP", "212", "141", "37.5", "97.2", "111,063", "90,567", "237"], ["Global Distribution LLC", "237", "165", "32.4", "94.5", "102,589", "84,468", "205"], ["Central Exports GmbH", "39", "23", "32.4", "100", "34,355", "17,046", "256"], ["Orion Logistics LLC", "48", "38", "11.6", "84.2", "31,537", "", "118"], ["Prime Commodities O\u00dc", "26", "15", "25", "93.3", "27,057", "15,625", "220"], ["Summit Exports LLC", "28", "17", "33.2", "100", "25,140", "18,355", "250"], ["Vector Trading GmbH", "42", "34", "10.1", "79.4", "22,063", "", "104"], ["Crown Exports Sp. z o.o.", "42", "31", "11.6", "96.8", "21,168", "", "132"], ["Global Manufacturing O\u00dc", "30", "15", "30", "93.3", "20,076", "", "141"], ["Orion Trading Sp. z o.o.", "37", "22", "28.1", "95.5", "18,884", "9,733", "140"], ["Coastal Group Sp. z o.o.", "39", "32", "13.6", "87.5", "16,182", "", "89"], ["Anchor Supply PLC", "27", "15", "33.9", "93.3", "15,322", "", "156"], ["Baltic Industries LLP", "237", "234", "-1.9", "23.9", "12,779", "", "20"], ["United Industries PLC", "244", "238", "-2.1", "17.2", "12,437", "3,667", "23"]], "src": "analytics/07b_payment_discipline.sql"}, {"num": "08", "title": "08_anomaly_detection", "cols": ["shipment_id", "lane", "actual_days", "lane_avg_days", "z_score", "days_late_vs_eta", "severity"], "rows": [["SHP-2025-01491", "Shanghai \u2192 Rotterdam", "38", "22.5", "4.36", "19", "\ud83d\udd34 investigate"], ["SHP-2025-04618", "Shanghai \u2192 Rotterdam", "38", "22.5", "4.36", "18", "\ud83d\udd34 investigate"], ["SHP-2025-01887", "Shanghai \u2192 Rotterdam", "38", "22.5", "4.36", "17", "\ud83d\udd34 investigate"], ["SHP-2025-00075", "Shanghai \u2192 Rotterdam", "38", "22.5", "4.36", "17", "\ud83d\udd34 investigate"], ["SHP-2025-03070", "Mersin \u2192 Hamburg", "26", "11.4", "4.23", "16", "\ud83d\udd34 investigate"], ["SHP-2025-02682", "Shanghai \u2192 Felixstowe", "45", "30.3", "4.2", "17", "\ud83d\udd34 investigate"], ["SHP-2025-01095", "Shanghai \u2192 Rotterdam", "37", "22.5", "4.08", "16", "\ud83d\udd34 investigate"], ["SHP-2025-03611", "Shanghai \u2192 Rotterdam", "37", "22.5", "4.08", "16", "\ud83d\udd34 investigate"], ["SHP-2025-03762", "Shanghai \u2192 Rotterdam", "37", "22.5", "4.08", "16", "\ud83d\udd34 investigate"], ["SHP-2025-01390", "Alexandria \u2192 Gdansk", "25", "11.5", "3.98", "17", "\ud83d\udd34 investigate"], ["SHP-2025-02872", "Mersin \u2192 Hamburg", "25", "11.4", "3.94", "16", "\ud83d\udd34 investigate"], ["SHP-2025-00583", "Mersin \u2192 Hamburg", "25", "11.4", "3.94", "16", "\ud83d\udd34 investigate"], ["SHP-2025-00812", "Mersin \u2192 Hamburg", "25", "11.4", "3.94", "15", "\ud83d\udd34 investigate"], ["SHP-2025-02347", "Shanghai \u2192 Felixstowe", "44", "30.3", "3.92", "15", "\ud83d\udd34 investigate"], ["SHP-2025-00751", "Shanghai \u2192 Felixstowe", "44", "30.3", "3.92", "15", "\ud83d\udd34 investigate"], ["SHP-2025-01860", "Shanghai \u2192 Felixstowe", "44", "30.3", "3.92", "15", "\ud83d\udd34 investigate"], ["SHP-2025-03208", "Shanghai \u2192 Felixstowe", "44", "30.3", "3.92", "15", "\ud83d\udd34 investigate"], ["SHP-2025-04396", "Shanghai \u2192 Felixstowe", "44", "30.3", "3.92", "16", "\ud83d\udd34 investigate"], ["SHP-2025-04461", "Nhava Sheva \u2192 Rotterdam", "32", "17.7", "3.89", "16", "\ud83d\udd34 investigate"], ["SHP-2025-01942", "Nhava Sheva \u2192 Rotterdam", "32", "17.7", "3.89", "16", "\ud83d\udd34 investigate"]], "src": "analytics/08_anomaly_detection.sql"}, {"num": "09", "title": "09_aml_screening", "cols": ["screen", "customer_name", "invoice_id", "issue_date", "amount", "evidence_count", "evidence_amount"], "rows": [["A \u00b7 STRUCTURING", "Baltic Commodities S.A.", "INV-2025-90002", "2025-09-14", "9424.22", "3", "28424.65"], ["A \u00b7 STRUCTURING", "Baltic Commodities S.A.", "INV-2025-90003", "2025-09-16", "9515.35", "4", "37940.00"], ["B \u00b7 DUPLICATE BILLING", "Crown Exports Sp. z o.o.", "INV-2026-00092", "2026-05-08", "3680.41", "2", "7360.82"], ["B \u00b7 DUPLICATE BILLING", "Crown Exports Sp. z o.o.", "INV-2025-95001", "2026-05-11", "3680.41", "2", "7360.82"], ["B \u00b7 DUPLICATE BILLING", "Global Manufacturing O\u00dc", "INV-2026-04429", "2026-04-06", "6525.88", "2", "13051.76"], ["B \u00b7 DUPLICATE BILLING", "Global Manufacturing O\u00dc", "INV-2025-95000", "2026-04-16", "6525.88", "2", "13051.76"], ["B \u00b7 DUPLICATE BILLING", "United Industries PLC", "INV-2024-03163", "2024-11-14", "3666.69", "2", "7333.38"], ["B \u00b7 DUPLICATE BILLING", "United Industries PLC", "INV-2025-95002", "2024-11-24", "3666.69", "2", "7333.38"]], "src": "analytics/09_aml_screening.sql"}, {"num": "10", "title": "DATA QUALITY SUITE \u2014 TRUST, BUT VERIFY", "cols": ["check_name", "severity", "violations"], "rows": [["01 \u00b7 Shipments with ATA before ATD (time travel)", "critical", "0"], ["02 \u00b7 Delivered shipments missing arrival date", "critical", "0"], ["03 \u00b7 Orphan events (no parent shipment)", "critical", "0"], ["04 \u00b7 Orphan invoices (no parent shipment)", "critical", "0"], ["05 \u00b7 Invoices paid before they were issued", "critical", "0"], ["06 \u00b7 Shipments referencing unknown ports", "critical", "0"], ["07 \u00b7 Non-positive volumes or amounts", "critical", "0"], ["11 \u00b7 Chokepoint lanes referencing unknown ports", "critical", "0"], ["08 \u00b7 Currency codes without an FX fixing", "warning", "0"], ["09 \u00b7 Shipments billed more than once (review)", "warning", "4"], ["10 \u00b7 Bookings dated before customer onboarding", "warning", "0"]], "src": "analytics/10_data_quality.sql"}, {"num": "11", "title": "11_real_port_activity", "cols": ["port_name", "region", "data_through", "days_observed", "ctr_calls_per_day", "ctr_calls_yoy_pct", "cargo_kt_per_day", "cargo_yoy_pct"], "rows": [["Jebel Ali", "MEA", "2026-06-26", "90", "1", "-92.5", "692.4", "13.7"], ["Gdansk", "Europe", "2026-06-26", "90", "2.4", "-9.7", "235.1", "6.8"], ["Hamburg", "Europe", "2026-06-26", "90", "9.5", "-4", "375", "6.8"], ["Nhava Sheva", "Asia", "2026-06-26", "90", "7", "-4.7", "458.8", "5.8"], ["Alexandria", "MEA", "2026-06-26", "90", "3.2", "-7.3", "162.8", "3"], ["Long Beach", "Americas", "2026-06-26", "90", "5.3", "3", "554", "3"], ["Mersin", "MEA", "2026-06-26", "90", "3.4", "-7.8", "85.1", "2.6"], ["Santos", "Americas", "2026-06-26", "90", "6.4", "0.9", "449.3", "2.2"], ["Singapore", "Asia", "2026-06-26", "90", "39.7", "-1.1", "2,347", "-0.6"], ["Felixstowe", "Europe", "2026-06-26", "90", "2.4", "-8.4", "68.7", "-2.1"], ["New York", "Americas", "2026-06-26", "90", "5.9", "-10.1", "296.9", "-2.5"], ["Busan", "Asia", "2026-06-26", "90", "32", "-1.8", "410.5", "-3.4"], ["Rotterdam", "Europe", "2026-06-26", "90", "18", "-3", "932.2", "-4.7"], ["Shenzhen", "Asia", "2026-06-26", "90", "9.4", "-6.4", "118.8", "-7"], ["Shanghai", "Asia", "2026-06-26", "90", "34.9", "-7.7", "1,211.1", "-22.9"], ["Odesa", "Europe", "2026-06-26", "90", "0", "", "0", ""]], "src": "analytics/11_real_port_activity.sql"}, {"num": "12", "title": "NETWORK EXPOSURE TO REAL PORT TRENDS \u2014 SYNTHETIC \u22c8 REAL", "cols": ["port_name", "region", "shipments_180d", "cbm_180d", "share_of_book_pct", "real_calls_yoy_pct", "real_world_signal"], "rows": [["Rotterdam", "Europe", "794", "15,123", "21.9", "-3", "stable"], ["Shanghai", "Asia", "657", "11,923", "17.3", "-7.7", "!  softening"], ["Hamburg", "Europe", "442", "8,437", "12.2", "-4", "!  softening"], ["Odesa", "Europe", "448", "7,974", "11.6", "", "baseline too short"], ["Long Beach", "Americas", "245", "4,462", "6.5", "3", "stable"], ["Shenzhen", "Asia", "177", "3,387", "4.9", "-6.4", "!  softening"], ["Nhava Sheva", "Asia", "145", "2,919", "4.2", "-4.7", "!  softening"], ["New York", "Americas", "161", "2,868", "4.2", "-10.1", "!! declining traffic"], ["Felixstowe", "Europe", "127", "2,492", "3.6", "-8.4", "!  softening"], ["Busan", "Asia", "96", "2,176", "3.2", "-1.8", "stable"], ["Mersin", "MEA", "109", "2,061", "3", "-7.8", "!  softening"], ["Gdansk", "Europe", "80", "1,521", "2.2", "-9.7", "!  softening"], ["Alexandria", "MEA", "80", "1,521", "2.2", "-7.3", "!  softening"], ["Singapore", "Asia", "66", "1,264", "1.8", "-1.1", "stable"], ["Jebel Ali", "MEA", "45", "832", "1.2", "-92.5", "?  feed anomaly \u2014 verify source"]], "src": "analytics/12_network_exposure_real.sql"}, {"num": "13", "title": "CHOKEPOINT EXPOSURE \u2014 HOW MUCH OF OUR BOOK SAILS THROUGH EACH STRAIT?", "cols": ["chokepoint", "lanes", "shipments_180d", "cbm_180d", "share_of_book_pct", "transits_per_day", "transits_yoy_pct", "real_world_signal"], "rows": [["Dover Strait", "9", "1,287", "24,585", "71.3", "35.4", "-6", "stable"], ["Gibraltar Strait", "8", "1,126", "21,717", "63", "31.5", "-6.6", "stable"], ["Suez Canal", "7", "941", "18,038", "52.3", "8.2", "-8.7", "!  transits falling"], ["Bab el-Mandeb Strait", "7", "941", "18,038", "52.3", "5.7", "-13", "!  transits falling"], ["Malacca Strait", "5", "751", "14,288", "41.4", "60", "-3.5", "stable"], ["Bosporus Strait", "3", "292", "4,985", "14.5", "10.4", "1.3", "stable"], ["Oresund Strait", "2", "236", "4,510", "13.1", "5.3", "-6.7", "stable"], ["Strait of Hormuz", "2", "190", "3,750", "10.9", "1.4", "-93.2", "!! transits collapsing \u2014 re-route risk"]], "src": "analytics/13_chokepoint_exposure.sql"}, {"num": "13", "title": "13_door_to_door_routing", "cols": ["request", "rank", "route", "gateway", "inland_mode", "total_days", "usd_per_cbm", "real_data_buffer_d", "score"], "rows": [["Shanghai \u2192 Kyiv", "1", "Shanghai \u2192 Alexandria \u2192 Odesa \u21d2 Kyiv", "Odesa", "truck", "28", "115.9", "0", "157.9"], ["Shanghai \u2192 Kyiv", "2", "Shanghai \u2192 Alexandria \u2192 Mersin \u2192 Odesa \u21d2 Kyiv", "Odesa", "truck", "31", "124.3", "0", "170.8"], ["Shanghai \u2192 Kyiv", "3", "Shanghai \u2192 Singapore \u2192 Alexandria \u2192 Odesa \u21d2 Kyiv", "Odesa", "truck", "32", "129.6", "0", "177.6"], ["Shanghai \u2192 Poltava", "1", "Shanghai \u2192 Alexandria \u2192 Odesa \u21d2 Poltava", "Odesa", "truck", "28", "120.9", "0", "162.9"], ["Shanghai \u2192 Poltava", "2", "Shanghai \u2192 Alexandria \u2192 Mersin \u2192 Odesa \u21d2 Poltava", "Odesa", "truck", "31", "129.3", "0", "175.8"], ["Shanghai \u2192 Poltava", "3", "Shanghai \u2192 Singapore \u2192 Alexandria \u2192 Odesa \u21d2 Poltava", "Odesa", "truck", "32", "134.6", "0", "182.6"], ["Shenzhen \u2192 Poltava", "1", "Shenzhen \u2192 Singapore \u2192 Alexandria \u2192 Odesa \u21d2 Poltava", "Odesa", "truck", "30", "129.3", "0", "174.3"], ["Shenzhen \u2192 Poltava", "2", "Shenzhen \u2192 Shanghai \u2192 Alexandria \u2192 Odesa \u21d2 Poltava", "Odesa", "truck", "33", "128.9", "0", "178.4"], ["Shenzhen \u2192 Poltava", "3", "Shenzhen \u2192 Singapore \u2192 Hamburg \u2192 Gdansk \u21d2 Poltava", "Gdansk", "rail", "38", "127.3", "1", "184.3"]], "src": "door_to_door/13_door_to_door_routing.sql"}, {"num": "14", "title": "DOOR-TO-DOOR ROUTING \u2014 MULTIMODAL PATHFINDING (OPTIONAL EXTENSION)", "cols": ["request", "rank", "route", "gateway", "inland_mode", "total_days", "usd_per_cbm", "real_data_buffer_d", "score"], "rows": [["Shanghai \u2192 Kyiv", "1", "Shanghai \u2192 Alexandria \u2192 Odesa \u21d2 Kyiv", "Odesa", "truck", "28", "115.9", "0", "157.9"], ["Shanghai \u2192 Kyiv", "2", "Shanghai \u2192 Alexandria \u2192 Mersin \u2192 Odesa \u21d2 Kyiv", "Odesa", "truck", "31", "124.3", "0", "170.8"], ["Shanghai \u2192 Kyiv", "3", "Shanghai \u2192 Singapore \u2192 Alexandria \u2192 Odesa \u21d2 Kyiv", "Odesa", "truck", "32", "129.6", "0", "177.6"], ["Shanghai \u2192 Poltava", "1", "Shanghai \u2192 Alexandria \u2192 Odesa \u21d2 Poltava", "Odesa", "truck", "28", "120.9", "0", "162.9"], ["Shanghai \u2192 Poltava", "2", "Shanghai \u2192 Alexandria \u2192 Mersin \u2192 Odesa \u21d2 Poltava", "Odesa", "truck", "31", "129.3", "0", "175.8"], ["Shanghai \u2192 Poltava", "3", "Shanghai \u2192 Singapore \u2192 Alexandria \u2192 Odesa \u21d2 Poltava", "Odesa", "truck", "32", "134.6", "0", "182.6"], ["Shenzhen \u2192 Poltava", "1", "Shenzhen \u2192 Singapore \u2192 Alexandria \u2192 Odesa \u21d2 Poltava", "Odesa", "truck", "30", "129.3", "0", "174.3"], ["Shenzhen \u2192 Poltava", "2", "Shenzhen \u2192 Shanghai \u2192 Alexandria \u2192 Odesa \u21d2 Poltava", "Odesa", "truck", "33", "128.9", "0", "178.4"], ["Shenzhen \u2192 Poltava", "3", "Shenzhen \u2192 Singapore \u2192 Hamburg \u2192 Gdansk \u21d2 Poltava", "Gdansk", "rail", "38", "127.3", "1", "184.3"]], "src": "door_to_door/14_door_to_door_routing.sql"}], "facts": {"peakM": "2026-03", "peakN": 389, "topRegion": "Asia", "topRegionPct": 63, "upPort": "Jebel Ali", "upPct": 13.7, "dnPort": "Shanghai", "dnPct": -22.9, "zeroPorts": ["Odesa"], "overduePct": 46}};
+const fmt = n => n==null ? '—' : new Intl.NumberFormat('en-US').format(Math.round(n));
+const usd = n => n==null ? '—' : '$' + (n>=1e6 ? (n/1e6).toFixed(2)+'M' : fmt(n));
+const F = D.facts;
+
+/* ── translations (English is ALWAYS the default on load) ───────────────── */
+const I18N = {
+en: {
+  meta:"Data through {d} · satellite feed: IMF PortWatch · FX: ECB / NBU · generated {g} · book of business is synthetic, port activity and FX are real",
+  metaNone:"Synthetic data only — run fetch_real_data.py for the live feed",
+  navOverview:"Overview", navModules:"Query results",
+  kRev:"Revenue", kRevN:"FX-true, all invoices",
+  kShp:"Shipments", kShpN:"two years",
+  kCus:"Customers", kCusN:"active, last 180 days",
+  kOnt:"On time", kOntN:"± 2 days of ETA",
+  kOut:"Unpaid", kOutN:"{x} is 90+ days late",
+  kTra:"Avg transit", kTraN:"port to port", dUnit:"d",
+  pTrend:"Shipments per month",
+  pRegions:"Revenue by region", pAging:"Unpaid invoices by age",
+  pPorts:"Ports — live satellite view (last 90 days vs a year ago; sparkline = 26 weeks)",
+  pRoutes:"Door-to-door routes — ranked", pAml:"AML alerts",
+  pYoy:"Port cargo, year over year — satellite data",
+  pLanes:"Top-10 busiest lanes, shipments",
+  pChoke:"Chokepoint exposure — our cargo vs real strait transits",
+  noteChoke:"Share of the last-180-day book that sails through each strait · badge = real container transits, 90 days vs a year ago (IMF PortWatch).",
+  pOntime:"On-time arrivals by month, %",
+  noteTrend:"Peak month: <b>{m}</b> — {n} shipments.",
+  noteRegion:"<b>{r}</b> ≈ {p}% of all revenue.",
+  noteAging:"<b>{p}%</b> of unpaid money is already 90+ days late.",
+  notePorts:"Fastest riser: <b>{up}</b> (+{upp}%) · steepest fall: <b>{dn}</b> ({dnp}%).",
+  noteZero:"<b>{z}</b>: zero container traffic right now.",
+  portsH:["Port","Country","Cargo/day","vs last yr","26 weeks","Our volume, 180d"],
+  kt:"kt", noTraffic:"no traffic", noData:"no data",
+  pick:"best", noAlerts:"Nothing caught this run.",
+  modsTitle:"All query results",
+  modsDesc:"Complete output of every analytical module, exactly as produced by the SQL pipeline. Scroll inside a table if it is long; the header stays put.",
+  rows:"rows", src:"source",
+  regions:{Europe:"Europe",Asia:"Asia",MEA:"Middle East & Africa",Americas:"Americas"},
+  buckets:{"Not yet due":"Not yet due","1–30 days":"1–30 days","31–60 days":"31–60 days","61–90 days":"61–90 days","90+ days":"90+ days"},
+  modes:{truck:"truck",rail:"rail"},
+  screens:{"A · STRUCTURING":"Structuring","B · DUPLICATE BILLING":"Duplicate billing"},
+  mods:{}
+},
+uk: {
+  meta:"Дані до {d} · супутниковий фід: IMF PortWatch · курси: ЄЦБ / НБУ · згенеровано {g} · книга бізнесу синтетична, активність портів і курси — реальні",
+  metaNone:"Лише синтетичні дані — запустіть fetch_real_data.py",
+  navOverview:"Огляд", navModules:"Результати запитів",
+  kRev:"Дохід", kRevN:"за курсом дня, всі інвойси",
+  kShp:"Відправлення", kShpN:"два роки",
+  kCus:"Клієнти", kCusN:"активні за 180 днів",
+  kOnt:"Вчасно", kOntN:"± 2 дні від ETA",
+  kOut:"Не сплачено", kOutN:"{x} — прострочення 90+ днів",
+  kTra:"Сер. транзит", kTraN:"порт – порт", dUnit:"дн",
+  pTrend:"Відправлення за місяцями",
+  pRegions:"Дохід за регіонами", pAging:"Несплачені інвойси за віком",
+  pPorts:"Порти — супутникові дані (останні 90 днів проти року тому; лінія = 26 тижнів)",
+  pRoutes:"Маршрути до дверей — ранжовані", pAml:"AML-сигнали",
+  pYoy:"Вантаж портів, рік до року — супутник",
+  pLanes:"Топ-10 найзавантаженіших лейнів, відправлення",
+  pChoke:"Експозиція на протоки — наш вантаж проти реальних транзитів",
+  noteChoke:"Частка книги за 180 днів, що йде через протоку · бейдж = реальні контейнерні транзити, 90 днів проти року тому (IMF PortWatch).",
+  pOntime:"Вчасні прибуття за місяцями, %",
+  noteTrend:"Піковий місяць: <b>{m}</b> — {n} відправлень.",
+  noteRegion:"<b>{r}</b> ≈ {p}% усього доходу.",
+  noteAging:"<b>{p}%</b> несплачених грошей — прострочення 90+ днів.",
+  notePorts:"Найшвидше зростає <b>{up}</b> (+{upp}%) · найглибше падає <b>{dn}</b> ({dnp}%).",
+  noteZero:"<b>{z}</b>: контейнерного трафіку зараз немає.",
+  portsH:["Порт","Країна","Вантаж/добу","до мин. року","26 тижнів","Наш обсяг, 180дн"],
+  kt:"кт", noTraffic:"немає трафіку", noData:"немає даних",
+  pick:"кращий", noAlerts:"Цього разу нічого не спіймано.",
+  modsTitle:"Усі результати запитів",
+  modsDesc:"Повний вивід кожного аналітичного модуля — точно так, як його видав SQL-конвеєр. Довгі таблиці прокручуються всередині; шапка лишається на місці.",
+  rows:"рядків", src:"джерело",
+  regions:{Europe:"Європа",Asia:"Азія",MEA:"Бл. Схід і Африка",Americas:"Америки"},
+  buckets:{"Not yet due":"Строк не настав","1–30 days":"1–30 днів","31–60 days":"31–60 днів","61–90 days":"61–90 днів","90+ days":"90+ днів"},
+  modes:{truck:"вантажівка",rail:"залізниця"},
+  screens:{"A · STRUCTURING":"Дроблення сум","B · DUPLICATE BILLING":"Дубльовані рахунки"},
+  chokes:{"Suez Canal":"Суецький канал","Bosporus Strait":"Босфор","Bab el-Mandeb Strait":"Баб-ель-Мандеб","Malacca Strait":"Малаккська протока","Strait of Hormuz":"Ормузька протока","Gibraltar Strait":"Гібралтар","Dover Strait":"Дуврська протока","Oresund Strait":"Ересунн"},
+  cols:{month:"місяць",shipments:"відправлення",mom_change:"зміна м/м",mom_growth_pct:"ріст м/м, %",total_cbm:"обсяг, CBM",cumulative_cbm:"накопич. CBM",shipments_3mo_avg:"середнє 3 міс",active_customers:"активні клієнти",on_time_pct:"вчасно, %",avg_transit_days:"сер. транзит, дн",routing:"маршрут",legs:"плечі",modes:"режими",transit_days:"днів у дорозі",cost_per_cbm_usd:"ціна за CBM, $",cost_rank:"ранг за ціною",speed_rank:"ранг за швидкістю",stage:"етап",location:"порт",observations:"спостереження",median_days:"медіана, дн",p90_days:"p90, дн",worst_case_days:"найгірше, дн",p90_to_median_ratio:"p90/медіана",segment:"сегмент",customers:"клієнти",revenue_usd:"дохід, $",revenue_share_pct:"частка доходу, %",class_a_customers:"клас A",class_b_customers:"клас B",class_c_customers:"клас C",cohort:"когорта",size:"розмір",q0:"кв. 0",q1_pct:"кв. 1, %",q2_pct:"кв. 2, %",q3_pct:"кв. 3, %",q4_pct:"кв. 4, %",q5_pct:"кв. 5, %",q6_pct:"кв. 6, %",region:"регіон",quarter:"квартал",invoices:"інвойси",avg_invoice_usd:"сер. інвойс, $",currencies_billed:"валют",aging_bucket:"кошик прострочення",outstanding_usd:"не сплачено, $",share_pct:"частка, %",customers_affected:"клієнтів",shipment_id:"відправлення",lane:"лейн",actual_days:"факт, дн",lane_avg_days:"середнє лейну, дн",z_score:"z-оцінка",days_late_vs_eta:"запізнення до ETA, дн",severity:"важливість",screen:"перевірка",customer_name:"клієнт",invoice_id:"інвойс",issue_date:"дата виставлення",amount:"сума",evidence_count:"епізодів",evidence_amount:"сума епізодів",check_name:"перевірка",violations:"порушень",port_name:"порт",data_through:"дані до",days_observed:"днів спостережень",ctr_calls_per_day:"конт. заходи/добу",ctr_calls_yoy_pct:"заходи р/р, %",cargo_kt_per_day:"вантаж, кт/добу",cargo_yoy_pct:"вантаж р/р, %",shipments_180d:"відправлення 180дн",cbm_180d:"CBM 180дн",share_of_book_pct:"частка книги, %",real_calls_yoy_pct:"реальні заходи р/р, %",real_world_signal:"сигнал",request:"запит",rank:"ранг",route:"маршрут",gateway:"порт-шлюз",inland_mode:"наземний режим",total_days:"всього днів",usd_per_cbm:"$ за CBM",real_data_buffer_d:"буфер за даними, дн",score:"бал",yoy_growth_pct:"ріст р/р, %",customer:"клієнт",paid:"сплачено",avg_days_late:"сер. запізнення, дн",paid_late_pct:"сплачено пізно, %",overdue_90d_usd:"прострочено 90+, $",dso_days:"DSO, дн",lane_median_days:"медіана лейну, дн",robust_z:"робастний z",classic_z:"класичний z",currency:"валюта",evidence_usd:"сума епізодів, $",chokepoint:"протока",lanes:"лейни",transits_per_day:"транзитів/добу",transits_yoy_pct:"транзити р/р, %"},
+  mods:{"01":"Ключові показники","02":"Пошук маршрутів (граф)","03":"Вузькі місця транзиту","04":"Сегментація клієнтів","05":"Когортне утримання","06":"Дохід у USD (FX)","07":"Старіння дебіторки","07b":"Платіжна дисципліна і DSO","08":"Аномалії транзиту","09":"AML-скринінг","10":"Якість даних","11":"Реальна активність портів","12":"Експозиція мережі","13":"Експозиція на протоки","14":"Маршрути до дверей"}
+},
+ru: {
+  meta:"Данные по {d} · спутниковый фид: IMF PortWatch · курсы: ЕЦБ / НБУ · сгенерировано {g} · книга бизнеса синтетическая, активность портов и курсы — реальные",
+  metaNone:"Только синтетические данные — запустите fetch_real_data.py",
+  navOverview:"Обзор", navModules:"Результаты запросов",
+  kRev:"Выручка", kRevN:"по курсу дня, все инвойсы",
+  kShp:"Отправки", kShpN:"два года",
+  kCus:"Клиенты", kCusN:"активные за 180 дней",
+  kOnt:"Вовремя", kOntN:"± 2 дня от ETA",
+  kOut:"Не оплачено", kOutN:"{x} — просрочка 90+ дней",
+  kTra:"Ср. транзит", kTraN:"порт – порт", dUnit:"дн",
+  pTrend:"Отправки по месяцам",
+  pRegions:"Выручка по регионам", pAging:"Неоплаченные инвойсы по возрасту",
+  pPorts:"Порты — спутниковые данные (последние 90 дней против года назад; линия = 26 недель)",
+  pRoutes:"Маршруты до двери — ранжированные", pAml:"AML-сигналы",
+  pYoy:"Груз портов, год к году — спутник",
+  pLanes:"Топ-10 самых загруженных лейнов, отправки",
+  pChoke:"Экспозиция на проливы — наш груз против реальных транзитов",
+  noteChoke:"Доля книги за 180 дней, идущая через пролив · бейдж = реальные контейнерные транзиты, 90 дней против года назад (IMF PortWatch).",
+  pOntime:"Прибытия вовремя по месяцам, %",
+  noteTrend:"Пиковый месяц: <b>{m}</b> — {n} отправок.",
+  noteRegion:"<b>{r}</b> ≈ {p}% всей выручки.",
+  noteAging:"<b>{p}%</b> неоплаченных денег — просрочка 90+ дней.",
+  notePorts:"Быстрее всех растёт <b>{up}</b> (+{upp}%) · глубже всех падает <b>{dn}</b> ({dnp}%).",
+  noteZero:"<b>{z}</b>: контейнерного трафика сейчас нет.",
+  portsH:["Порт","Страна","Груз/сутки","к прош. году","26 недель","Наш объём, 180дн"],
+  kt:"кт", noTraffic:"нет трафика", noData:"нет данных",
+  pick:"лучший", noAlerts:"В этот раз ничего не поймано.",
+  modsTitle:"Все результаты запросов",
+  modsDesc:"Полный вывод каждого аналитического модуля — ровно так, как его выдал SQL-конвейер. Длинные таблицы прокручиваются внутри; шапка остаётся на месте.",
+  rows:"строк", src:"источник",
+  regions:{Europe:"Европа",Asia:"Азия",MEA:"Бл. Восток и Африка",Americas:"Америки"},
+  buckets:{"Not yet due":"Срок не наступил","1–30 days":"1–30 дней","31–60 days":"31–60 дней","61–90 days":"61–90 дней","90+ days":"90+ дней"},
+  modes:{truck:"фура",rail:"ж/д"},
+  screens:{"A · STRUCTURING":"Дробление сумм","B · DUPLICATE BILLING":"Дубли счетов"},
+  chokes:{"Suez Canal":"Суэцкий канал","Bosporus Strait":"Босфор","Bab el-Mandeb Strait":"Баб-эль-Мандеб","Malacca Strait":"Малаккский пролив","Strait of Hormuz":"Ормузский пролив","Gibraltar Strait":"Гибралтар","Dover Strait":"Дуврский пролив","Oresund Strait":"Эресунн"},
+  cols:{month:"месяц",shipments:"отправки",mom_change:"изм. м/м",mom_growth_pct:"рост м/м, %",total_cbm:"объём, CBM",cumulative_cbm:"накопл. CBM",shipments_3mo_avg:"среднее 3 мес",active_customers:"активные клиенты",on_time_pct:"вовремя, %",avg_transit_days:"ср. транзит, дн",routing:"маршрут",legs:"плечи",modes:"режимы",transit_days:"дней в пути",cost_per_cbm_usd:"цена за CBM, $",cost_rank:"ранг по цене",speed_rank:"ранг по скорости",stage:"этап",location:"порт",observations:"наблюдения",median_days:"медиана, дн",p90_days:"p90, дн",worst_case_days:"худшее, дн",p90_to_median_ratio:"p90/медиана",segment:"сегмент",customers:"клиенты",revenue_usd:"выручка, $",revenue_share_pct:"доля выручки, %",class_a_customers:"класс A",class_b_customers:"класс B",class_c_customers:"класс C",cohort:"когорта",size:"размер",q0:"кв. 0",q1_pct:"кв. 1, %",q2_pct:"кв. 2, %",q3_pct:"кв. 3, %",q4_pct:"кв. 4, %",q5_pct:"кв. 5, %",q6_pct:"кв. 6, %",region:"регион",quarter:"квартал",invoices:"инвойсы",avg_invoice_usd:"ср. инвойс, $",currencies_billed:"валют",aging_bucket:"корзина просрочки",outstanding_usd:"не оплачено, $",share_pct:"доля, %",customers_affected:"клиентов",shipment_id:"отправка",lane:"лейн",actual_days:"факт, дн",lane_avg_days:"среднее лейна, дн",z_score:"z-оценка",days_late_vs_eta:"опоздание к ETA, дн",severity:"важность",screen:"проверка",customer_name:"клиент",invoice_id:"инвойс",issue_date:"дата выставления",amount:"сумма",evidence_count:"эпизодов",evidence_amount:"сумма эпизодов",check_name:"проверка",violations:"нарушений",port_name:"порт",data_through:"данные по",days_observed:"дней наблюдений",ctr_calls_per_day:"конт. заходы/сутки",ctr_calls_yoy_pct:"заходы г/г, %",cargo_kt_per_day:"груз, кт/сутки",cargo_yoy_pct:"груз г/г, %",shipments_180d:"отправки 180дн",cbm_180d:"CBM 180дн",share_of_book_pct:"доля книги, %",real_calls_yoy_pct:"реальные заходы г/г, %",real_world_signal:"сигнал",request:"запрос",rank:"ранг",route:"маршрут",gateway:"порт-шлюз",inland_mode:"наземный режим",total_days:"всего дней",usd_per_cbm:"$ за CBM",real_data_buffer_d:"буфер по данным, дн",score:"балл",yoy_growth_pct:"рост г/г, %",customer:"клиент",paid:"оплачено",avg_days_late:"ср. опоздание, дн",paid_late_pct:"оплачено с опозданием, %",overdue_90d_usd:"просрочено 90+, $",dso_days:"DSO, дн",lane_median_days:"медиана лейна, дн",robust_z:"робастный z",classic_z:"классический z",currency:"валюта",evidence_usd:"сумма эпизодов, $",chokepoint:"пролив",lanes:"лейны",transits_per_day:"транзитов/сутки",transits_yoy_pct:"транзиты г/г, %"},
+  mods:{"01":"Ключевые показатели","02":"Поиск маршрутов (граф)","03":"Узкие места транзита","04":"Сегментация клиентов","05":"Когортное удержание","06":"Выручка в USD (FX)","07":"Старение дебиторки","07b":"Платёжная дисциплина и DSO","08":"Аномалии транзита","09":"AML-скрининг","10":"Качество данных","11":"Реальная активность портов","12":"Экспозиция сети","13":"Экспозиция на проливы","14":"Маршруты до двери"}
+}};
+let LANG = 'en';                                 /* ALWAYS starts in English */
+const T = k => I18N[LANG][k] ?? I18N.en[k] ?? k;
+const M = (map, key) => (I18N[LANG][map] || {})[key] ?? key;
+const S = (k, vars) => Object.entries(vars).reduce(
+  (s,[kk,v]) => s.replaceAll('{'+kk+'}', v), T(k));
+const modTitle = m => LANG==='en' ? m.title : ((I18N[LANG].mods||{})[m.num] || m.title);
+
+function renderTop() {
+  document.documentElement.lang = LANG;
+  topMeta.textContent = D.fresh
+    ? S('meta',{d:D.fresh, g:D.generated}) : T('metaNone');
+}
+
+function renderNav() {
+  nav.innerHTML =
+    `<div class="nh">${T('navOverview')}</div>
+     <a href="#kpis">${T('kRev')} · KPI</a>
+     <a href="#ovTrendRow">${T('pTrend')}</a>
+     <a href="#ovChoke">${T('pChoke').split('—')[0]}</a>
+     <a href="#ovPorts">${T('pPorts').split('(')[0]}</a>
+     <a href="#routesPanel">${T('pRoutes')}</a>
+     <div class="nh">${T('navModules')}</div>` +
+    D.modules.map(m =>
+      `<a href="#m${m.num}">${m.num} · ${modTitle(m)}</a>`).join('');
+}
+
+function renderKPIs() {
+  const K = D.kpi, items = [
+    [T('kRev'), usd(K.revenue_usd), T('kRevN')],
+    [T('kShp'), fmt(K.shipments), T('kShpN')],
+    [T('kCus'), fmt(K.customers), T('kCusN')],
+    [T('kOnt'), K.on_time_pct+'%', T('kOntN')],
+    [T('kOut'), usd(K.outstanding_usd), S('kOutN',{x:usd(K.overdue90_usd)})],
+    [T('kTra'), K.avg_transit+' '+T('dUnit'), T('kTraN')],
+  ];
+  kpis.innerHTML = items.map(k =>
+    `<div class="kpi"><div class="l">${k[0]}</div><div class="v">${k[1]}</div>
+     <div class="n">${k[2]}</div></div>`).join('');
+}
+
+/* bar with a 4px rounded data-end, anchored flat on the baseline */
+function barPath(x, y, w, h, r) {
+  r = Math.min(r, w/2, h);
+  return `M${(x).toFixed(1)},${(y+h).toFixed(1)} v${(-(h-r)).toFixed(1)} ` +
+         `q0,${(-r).toFixed(1)} ${r.toFixed(1)},${(-r).toFixed(1)} ` +
+         `h${(w-2*r).toFixed(1)} q${r.toFixed(1)},0 ${r.toFixed(1)},${r.toFixed(1)} ` +
+         `v${(h-r).toFixed(1)} z`;
+}
+function renderTrend() {
+  const W=740, H=170, padB=24, padT=18, n=D.monthly.length;
+  const max = Math.max(...D.monthly.map(r=>r.shipments));
+  const gap = W/n, bw = gap*0.6;
+  let s = `<svg viewBox="0 0 ${W} ${H}" style="width:100%">`;
+  s += `<line x1="0" y1="${H-padB}" x2="${W}" y2="${H-padB}" stroke="#c3c2b7"/>`;
+  D.monthly.forEach((r,i) => {
+    const h = (H-padB-padT)*r.shipments/max, x = i*gap+(gap-bw)/2, y = H-padB-h;
+    const peak = r.shipments===max;
+    s += `<path d="${barPath(x, y, bw, h, 4)}"
+      fill="${peak?'#256abf':'#9ec5f4'}">
+      <title>${r.m}: ${fmt(r.shipments)}</title></path>`;
+    if (peak) s += `<text x="${(x+bw/2).toFixed(1)}" y="${(y-6).toFixed(1)}"
+      text-anchor="middle" font-size="11" font-weight="650"
+      fill="#1c5cab">${fmt(r.shipments)}</text>`;
+    if (i%3===0) {
+      const [yy,mm]=r.m.split('-');
+      s += `<text x="${(x+bw/2).toFixed(1)}" y="${H-8}" text-anchor="middle"
+        font-size="10" fill="#898781">${mm}.${yy.slice(2)}</text>`;
+    }
+  });
+  trend.innerHTML = s + '</svg>';
+  noteTrend.innerHTML = S('noteTrend',{m:F.peakM, n:fmt(F.peakN)});
+}
+
+function barRows(el, rows, warnIdx) {
+  const mx = Math.max(...rows.map(r=>r.v), 1);
+  el.innerHTML = rows.map((r,i) =>
+    `<div class="brow"><div class="lbl">${r.l}</div>
+     <div class="track"><div class="bar${i===warnIdx?' warn':''}"
+       style="width:${Math.max(2,100*r.v/mx)}%"></div></div>
+     <div class="val">${usd(r.v)}${r.x?' · '+r.x:''}</div></div>`).join('');
+}
+function renderBars() {
+  const tot = D.regions.reduce((a,r)=>a+r.usd,0)||1;
+  barRows(regionBars, D.regions.map(r =>
+    ({l:M('regions',r.region), v:r.usd, x:Math.round(100*r.usd/tot)+'%'})), -1);
+  barRows(agingBars, D.aging.map(r =>
+    ({l:M('buckets',r.bucket), v:r.usd})), D.aging.findIndex(r=>r.bucket==='90+ days'));
+  noteRegion.innerHTML = S('noteRegion',{r:M('regions',F.topRegion), p:F.topRegionPct});
+  noteAging.innerHTML = F.overduePct!=null ? S('noteAging',{p:F.overduePct}) : '';
+}
+
+function spark(vals) {
+  if (!vals || vals.length < 3) return '';
+  const W=140, H=22, mn=Math.min(...vals), mx=Math.max(...vals);
+  const pts = vals.map((v,i) =>
+    (i/(vals.length-1)*W).toFixed(1)+','+
+    (mx===mn?H/2:H-2-((v-mn)/(mx-mn))*(H-4)).toFixed(1)).join(' ');
+  return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">
+    <polyline points="${pts}" fill="none" stroke="#2a78d6" stroke-width="1.5"
+      stroke-linejoin="round" stroke-linecap="round"/></svg>`;
+}
+function renderPorts() {
+  document.querySelector('#portsTbl thead').innerHTML = '<tr>' +
+    T('portsH').map((h,i)=>`<th${i===2||i===3||i===5?' class="num"':''}>${h}</th>`).join('')+'</tr>';
+  const order=['Europe','Asia','MEA','Americas'];
+  let rows='';
+  order.forEach(reg => {
+    const ps = D.ports.filter(p=>p.region===reg);
+    if (!ps.length) return;
+    rows += `<tr class="rgn"><td colspan="6">${M('regions',reg)}</td></tr>`;
+    ps.forEach(p => {
+      let t;
+      if (p.kt_day==null) t = `<span class="pill na">${T('noData')}</span>`;
+      else if (p.kt_day===0) t = `<span class="pill na">${T('noTraffic')}</span>`;
+      else if (p.yoy==null) t = `<span class="pill na">—</span>`;
+      else t = `<span class="pill ${p.yoy>=3?'up':(p.yoy<=-3?'dn':'fl')}">${p.yoy>0?'+':''}${p.yoy}%</span>`;
+      rows += `<tr><td><b>${p.name}</b></td><td>${p.country}</td>
+        <td class="num">${p.kt_day==null?'—':fmt(p.kt_day)+' '+T('kt')}</td>
+        <td class="num">${t}</td><td>${spark(D.spark[p.code])}</td>
+        <td class="num">${fmt(p.cbm180)} cbm</td></tr>`;
+    });
+  });
+  document.querySelector('#portsTbl tbody').innerHTML = rows;
+  notePorts.innerHTML = F.upPort!=null
+    ? S('notePorts',{up:F.upPort,upp:F.upPct,dn:F.dnPort,dnp:F.dnPct}) : '';
+  noteZero.innerHTML = F.zeroPorts.length ? S('noteZero',{z:F.zeroPorts.join(', ')}) : '';
+}
+
+function renderRoutes() {
+  if (!D.routes13.length) { routesPanel.style.display = 'none'; return; }
+  routesPanel.style.display = '';
+  routesPanel.innerHTML = `<div class="pt">${T('pRoutes')}</div>`;
+  const groups = {};
+  D.routes13.forEach(r => (groups[r.request]=groups[r.request]||[]).push(r));
+  routesPanel.innerHTML += Object.entries(groups).map(([req,rs]) =>
+    `<div class="itin"><h4>${req}</h4>` + rs.map(r =>
+      `<div class="opt${r.rank===1?' best':''}">
+        <span>${r.rank}. ${r.route} <span style="color:var(--muted)">· ${M('modes',r.mode)}</span></span>
+        <span class="m">${r.days} ${T('dUnit')} · $${r.usd}/cbm${r.rank===1?' · '+T('pick'):''}</span>
+      </div>`).join('') + '</div>').join('');
+}
+
+function renderAML() {
+  aml.innerHTML = D.aml.length ? D.aml.map(a =>
+    `<div class="flag"><span><b>${M('screens',a.screen)}</b> — ${a.customer}
+      <span style="color:var(--muted)">${a.invoice}</span></span>
+      <b>$${fmt(a.amount)}</b></div>`).join('')
+    : `<div class="note">${T('noAlerts')}</div>`;
+}
+
+const colT = c => LANG==='en' ? c : ((I18N[LANG].cols||{})[c] || c);
+
+function renderYoy() {
+  pYoy.textContent = T('pYoy');
+  const ps = D.ports.filter(p=>p.yoy!=null && p.kt_day).sort((a,b)=>b.yoy-a.yoy);
+  const mx = Math.max(...ps.map(p=>Math.abs(p.yoy)), 1);
+  yoyBars.innerHTML = ps.map(p =>
+    `<div class="brow"><div class="lbl">${p.name}</div>
+     <div class="track"><div class="bar ${p.yoy>=0?'pos':'neg'}"
+       style="width:${Math.max(2,100*Math.abs(p.yoy)/mx)}%"></div></div>
+     <div class="val">${p.yoy>0?'+':''}${p.yoy}%</div></div>`).join('');
+}
+
+function renderLanes() {
+  pLanes.textContent = T('pLanes');
+  const mx = Math.max(...D.lanes.map(l=>l.n), 1);
+  laneBars.innerHTML = D.lanes.map(l =>
+    `<div class="brow"><div class="lbl">${l.l}</div>
+     <div class="track"><div class="bar" style="width:${Math.max(2,100*l.n/mx)}%"></div></div>
+     <div class="val">${fmt(l.n)}</div></div>`).join('');
+}
+
+function renderChoke() {
+  const box = document.getElementById('ovChoke');
+  if (!D.choke || !D.choke.length) { box.style.display = 'none'; return; }
+  pChoke.textContent = T('pChoke');
+  noteChoke.innerHTML = T('noteChoke');
+  const mx = Math.max(...D.choke.map(c=>c.share), 1);
+  chokeBars.innerHTML = D.choke.map(c => {
+    const pill = c.yoy==null
+      ? `<span class="pill na">${T('noData')}</span>`
+      : `<span class="pill ${c.yoy<=-8?'dn':(c.yoy>=8?'up':'fl')}">${c.yoy>0?'+':''}${c.yoy}%</span>`;
+    return `<div class="brow"><div class="lbl">${M('chokes',c.name)}</div>
+     <div class="track"><div class="bar" style="width:${Math.max(2,100*c.share/mx)}%"></div></div>
+     <div class="val">${c.share}% · ${pill}</div></div>`;
+  }).join('');
+}
+
+function renderOntime() {
+  pOntime.textContent = T('pOntime');
+  const W=740, H=120, padB=18, padT=12, n=D.ontime.length;
+  const vals = D.ontime.map(r=>r.pct), mn = Math.min(...vals)-4, mxv = 100;
+  const X = i => i/(n-1)*(W-30)+4, Y = v => padT+(H-padB-padT)*(1-(v-mn)/(mxv-mn));
+  let s = `<svg viewBox="0 0 ${W} ${H}" style="width:100%">`;
+  s += `<line x1="0" y1="${H-padB}" x2="${W-26}" y2="${H-padB}" stroke="#e1e0d9"/>`;
+  s += `<polyline points="${D.ontime.map((r,i)=>X(i).toFixed(1)+','+Y(r.pct).toFixed(1)).join(' ')}"
+        fill="none" stroke="#2a78d6" stroke-width="2"
+        stroke-linejoin="round" stroke-linecap="round"/>`;
+  D.ontime.forEach((r,i) => {
+    s += `<circle cx="${X(i).toFixed(1)}" cy="${Y(r.pct).toFixed(1)}" r="8"
+      fill="transparent"><title>${r.m}: ${r.pct}%</title></circle>`;
+    if (i%4===0) { const [yy,mm]=r.m.split('-');
+      s += `<text x="${X(i).toFixed(1)}" y="${H-5}" text-anchor="middle"
+        font-size="10" fill="#898781">${mm}.${yy.slice(2)}</text>`; }
+  });
+  const last = D.ontime[n-1];
+  s += `<text x="${(X(n-1)+4).toFixed(1)}" y="${(Y(last.pct)+4).toFixed(1)}"
+    font-size="11" font-weight="650" fill="#1c5cab">${last.pct}%</text>`;
+  ontime.innerHTML = s + '</svg>';
+}
+
+function renderModules() {
+  modsTitle.textContent = T('modsTitle');
+  modsDesc.textContent = T('modsDesc');
+  modules.innerHTML = D.modules.map(m => {
+    const head = '<tr>'+m.cols.map(c=>`<th>${colT(c)}</th>`).join('')+'</tr>';
+    const body = m.rows.map(r =>
+      '<tr>'+r.map(v=>`<td${/^-?[\d,.]+%?$/.test(v)?' class="num"':''}>${v}</td>`).join('')+'</tr>').join('');
+    const big = m.rows.length > 12;
+    return `<div class="mh" id="m${m.num}"><span class="n">${m.num}</span>
+        <h2>${modTitle(m)}</h2>
+        <span class="src">${m.rows.length} ${T('rows')} · ${m.src}</span></div>
+      <div class="panel" style="padding:${big?'0':'6px 8px'}">
+        ${big?'<div class="scroll">':''}<table><thead>${head}</thead>
+        <tbody>${body}</tbody></table>${big?'</div>':''}</div>`;
+  }).join('');
+}
+
+function renderAll() {
+  renderTop(); renderNav(); renderKPIs(); renderTrend(); renderBars();
+  renderYoy(); renderLanes(); renderChoke(); renderOntime();
+  renderPorts(); renderRoutes(); renderAML(); renderModules();
+}
+function setLang(l) {
+  LANG = l;
+  document.querySelectorAll('#lang a').forEach(a =>
+    a.classList.toggle('on', a.dataset.l===l));
+  pTrend.textContent=T('pTrend'); pRegions.textContent=T('pRegions');
+  pAging.textContent=T('pAging'); pPorts.textContent=T('pPorts');
+  pAml.textContent=T('pAml');
+  renderAll();
+}
+document.querySelectorAll('#lang a').forEach(a =>
+  a.addEventListener('click', () => setLang(a.dataset.l)));
+
+setLang('en');   /* first paint: English */
+</script>
+</body></html>

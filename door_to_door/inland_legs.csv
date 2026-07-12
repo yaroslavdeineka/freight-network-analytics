@@ -1,0 +1,16 @@
+from_port,dest_city,mode,distance_km,transit_days,cost_per_cbm,note
+UAODS,Poltava,truck,600,2,27.00,
+UAODS,Kyiv,truck,480,2,22.00,
+UAODS,Kharkiv,truck,730,2,32.00,
+UAODS,Lviv,truck,790,2,34.00,
+PLGDN,Poltava,truck,1650,4,62.00,incl. PL/UA border queue
+PLGDN,Kyiv,truck,1300,3,50.00,incl. PL/UA border queue
+PLGDN,Kharkiv,truck,1790,4,66.00,incl. PL/UA border queue
+PLGDN,Lviv,truck,900,3,38.00,incl. PL/UA border queue
+PLGDN,Warsaw,truck,340,1,15.00,
+PLGDN,Kyiv,rail,1400,6,36.00,gauge-break transload at border
+PLGDN,Poltava,rail,1750,7,44.00,gauge-break transload at border
+DEHAM,Poltava,truck,2150,5,78.00,incl. border queue
+DEHAM,Kyiv,truck,1800,4,66.00,incl. border queue
+DEHAM,Lviv,truck,1400,4,54.00,incl. border queue
+DEHAM,Warsaw,truck,750,2,30.00,

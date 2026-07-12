@@ -1,0 +1,17 @@
+port_code,port_name,country,region,latitude,longitude
+UAODS,Odesa,Ukraine,Europe,46.48,30.73
+PLGDN,Gdansk,Poland,Europe,54.4,18.66
+DEHAM,Hamburg,Germany,Europe,53.54,9.98
+NLRTM,Rotterdam,Netherlands,Europe,51.95,4.14
+GBFXT,Felixstowe,United Kingdom,Europe,51.95,1.31
+TRMER,Mersin,Turkey,MEA,36.79,34.64
+EGALY,Alexandria,Egypt,MEA,31.19,29.87
+AEJEA,Jebel Ali,UAE,MEA,24.98,55.06
+INNSA,Nhava Sheva,India,Asia,18.95,72.95
+SGSIN,Singapore,Singapore,Asia,1.26,103.84
+CNSHA,Shanghai,China,Asia,31.22,121.49
+CNSZX,Shenzhen,China,Asia,22.54,114.06
+KRPUS,Busan,South Korea,Asia,35.1,129.04
+USNYC,New York,United States,Americas,40.67,-74.04
+USLGB,Long Beach,United States,Americas,33.75,-118.19
+BRSSZ,Santos,Brazil,Americas,-23.95,-46.33

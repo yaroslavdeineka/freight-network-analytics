@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+freight.duckdb
+.DS_Store
+.venv/
+freight_sql_README.md

@@ -1,0 +1,49 @@
+name: Weekly data refresh
+
+# IMF PortWatch publishes on Tuesdays ~13:00 UTC; we refresh a few hours
+# later, then rebuild the report and the dashboard and commit the results.
+on:
+  schedule:
+    - cron: '0 17 * * 2'          # every Tuesday, 17:00 UTC
+  workflow_dispatch: {}           # ...and on demand from the Actions tab
+
+permissions:
+  contents: write
+
+concurrency:                      # a manual run must not race the cron run
+  group: data-refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Fetch fresh real data (IMF PortWatch ports + chokepoints, ECB, NBU)
+        run: python fetch_real_data.py
+
+      # run_pipeline exits non-zero if the data-quality suite (module 10)
+      # finds critical violations — bad data never gets committed
+      - name: Rebuild database, report and dashboard
+        run: python run_pipeline.py
+
+      - name: Commit refreshed artifacts
+        run: |
+          git config user.name  "data-refresh-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/real outputs
+          if git diff --cached --quiet; then
+            echo "No new data this week."
+          else
+            git commit -m "Weekly data refresh: $(date -u +%Y-%m-%d)"
+            git pull --rebase origin HEAD
+            git push
+          fi

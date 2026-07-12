@@ -1,0 +1,29 @@
+name: CI
+
+# Every push and PR: rebuild the database from the committed CSVs, run all
+# analytical modules (the pipeline fails on critical data-quality violations)
+# and the pytest suite (which includes a recall regression test for the AML
+# structuring screen).
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run pipeline (offline, quality-gated)
+        run: python run_pipeline.py
+
+      - name: Run tests
+        run: pytest -q
