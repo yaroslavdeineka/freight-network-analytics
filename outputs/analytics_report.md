@@ -1,6 +1,6 @@
 # Freight Network Analytics — Query Results
 
-*Generated 2026-07-12 19:40 · real data through **2026-06-26***
+*Generated 2026-07-14 18:08 · real data through **2026-07-10***
 
 <details><summary><b>Port codes used in this report</b></summary>
 
@@ -78,8 +78,8 @@
 
 | stage                                | location   |   observations |   median_days |   p90_days |   worst_case_days |   p90_to_median_ratio |
 |:-------------------------------------|:-----------|---------------:|--------------:|-----------:|------------------:|----------------------:|
-| DEPARTED → TRANSSHIPMENT_IN          | NLRTM      |            729 |          7.96 |      28.08 |              28.4 |                   3.5 |
-| DEPARTED → ARRIVED                   | GBFXT      |             90 |         27.58 |      27.88 |              27.9 |                   1   |
+| DEPARTED → TRANSSHIPMENT_IN          | NLRTM      |            724 |          7.96 |      28.08 |              28.4 |                   3.5 |
+| DEPARTED → ARRIVED                   | GBFXT      |             93 |         27.58 |      27.88 |              27.9 |                   1   |
 | TRANSSHIPMENT_OUT → ARRIVED          | NLRTM      |          1,738 |         13.08 |      18.5  |              32.7 |                   1.4 |
 | TRANSSHIPMENT_OUT → ARRIVED          | DEHAM      |            969 |          9.67 |      17.13 |              21.8 |                   1.8 |
 | TRANSSHIPMENT_OUT → ARRIVED          | CNSHA      |            311 |         14.75 |      16.96 |              20.7 |                   1.1 |
@@ -87,11 +87,11 @@
 | TRANSSHIPMENT_OUT → ARRIVED          | USLGB      |            208 |         12.6  |      14.73 |              17.3 |                   1.2 |
 | DEPARTED → ARRIVED                   | USNYC      |            418 |         10.54 |      12.54 |              15.6 |                   1.2 |
 | DEPARTED → TRANSSHIPMENT_IN          | TRMER      |            582 |          3.08 |       9.04 |               9.4 |                   2.9 |
-| DEPARTED → ARRIVED                   | DEHAM      |             67 |          3.92 |       7.75 |               7.9 |                   2   |
+| DEPARTED → ARRIVED                   | DEHAM      |             68 |          3.92 |       7.75 |               7.9 |                   2   |
 | BOOKED → CARGO_RECEIVED              | SGSIN      |            210 |          3.23 |       6.04 |               7.5 |                   1.9 |
-| TRANSSHIPMENT_IN → TRANSSHIPMENT_OUT | NLRTM      |            582 |          1.25 |       6    |              13.7 |                   4.8 |
+| TRANSSHIPMENT_IN → TRANSSHIPMENT_OUT | NLRTM      |            585 |          1.25 |       6    |              13.7 |                   4.8 |
 | DEPARTED → TRANSSHIPMENT_IN          | SGSIN      |          1,437 |          4.83 |       5.92 |               6.4 |                   1.2 |
-| BOOKED → CARGO_RECEIVED              | TRMER      |            306 |          3.33 |       5.79 |               8.5 |                   1.7 |
+| BOOKED → CARGO_RECEIVED              | TRMER      |            307 |          3.33 |       5.76 |               8.5 |                   1.7 |
 | BOOKED → CARGO_RECEIVED              | EGALY      |            204 |          3.13 |       5.61 |               7.6 |                   1.8 |
 
 
@@ -101,12 +101,12 @@
 
 | segment              |   customers |   shipments |      revenue_usd |   revenue_share_pct |   class_a_customers |   class_b_customers |   class_c_customers |
 |:---------------------|------------:|------------:|-----------------:|--------------------:|--------------------:|--------------------:|--------------------:|
-| Champion             |          17 |        2870 |      4.99734e+06 |                56.4 |                  17 |                   0 |                   0 |
-| Core                 |          23 |         782 |      1.22165e+06 |                13.8 |                   6 |                  10 |                   7 |
+| Champion             |          16 |        2658 |      4.63929e+06 |                52.4 |                  16 |                   0 |                   0 |
+| Core                 |          22 |         926 |      1.48753e+06 |                16.8 |                   7 |                   9 |                   6 |
 | At Risk (high value) |          11 |         613 |      1.11686e+06 |                12.6 |                  11 |                   0 |                   0 |
-| Dormant              |          14 |         413 | 680107           |                 7.7 |                   3 |                   8 |                   3 |
-| Loyal                |           9 |         337 | 553871           |                 6.3 |                   6 |                   3 |                   0 |
-| New / Developing     |           6 |         185 | 292089           |                 3.3 |                   0 |                   4 |                   2 |
+| Dormant              |          15 |         447 | 731413           |                 8.3 |                   3 |                   9 |                   3 |
+| Loyal                |          10 |         371 | 599311           |                 6.8 |                   5 |                   5 |                   0 |
+| New / Developing     |           6 |         185 | 287506           |                 3.2 |                   1 |                   2 |                   3 |
 
 
 ## 05_cohort_retention
@@ -203,26 +203,26 @@
 
 | shipment_id    | lane          |   actual_days |   lane_avg_days |   z_score |   days_late_vs_eta | severity      |
 |:---------------|:--------------|--------------:|----------------:|----------:|-------------------:|:--------------|
-| SHP-2025-01491 | CNSHA → NLRTM |            38 |            22.5 |      4.36 |                 19 | 🔴 investigate |
 | SHP-2025-04618 | CNSHA → NLRTM |            38 |            22.5 |      4.36 |                 18 | 🔴 investigate |
 | SHP-2025-01887 | CNSHA → NLRTM |            38 |            22.5 |      4.36 |                 17 | 🔴 investigate |
+| SHP-2025-01491 | CNSHA → NLRTM |            38 |            22.5 |      4.36 |                 19 | 🔴 investigate |
 | SHP-2025-00075 | CNSHA → NLRTM |            38 |            22.5 |      4.36 |                 17 | 🔴 investigate |
 | SHP-2025-03070 | TRMER → DEHAM |            26 |            11.4 |      4.23 |                 16 | 🔴 investigate |
 | SHP-2025-02682 | CNSHA → GBFXT |            45 |            30.3 |      4.2  |                 17 | 🔴 investigate |
 | SHP-2025-01095 | CNSHA → NLRTM |            37 |            22.5 |      4.08 |                 16 | 🔴 investigate |
-| SHP-2025-03611 | CNSHA → NLRTM |            37 |            22.5 |      4.08 |                 16 | 🔴 investigate |
 | SHP-2025-03762 | CNSHA → NLRTM |            37 |            22.5 |      4.08 |                 16 | 🔴 investigate |
+| SHP-2025-03611 | CNSHA → NLRTM |            37 |            22.5 |      4.08 |                 16 | 🔴 investigate |
 | SHP-2025-01390 | EGALY → PLGDN |            25 |            11.5 |      3.98 |                 17 | 🔴 investigate |
-| SHP-2025-02872 | TRMER → DEHAM |            25 |            11.4 |      3.94 |                 16 | 🔴 investigate |
 | SHP-2025-00583 | TRMER → DEHAM |            25 |            11.4 |      3.94 |                 16 | 🔴 investigate |
+| SHP-2025-02872 | TRMER → DEHAM |            25 |            11.4 |      3.94 |                 16 | 🔴 investigate |
 | SHP-2025-00812 | TRMER → DEHAM |            25 |            11.4 |      3.94 |                 15 | 🔴 investigate |
 | SHP-2025-02347 | CNSHA → GBFXT |            44 |            30.3 |      3.92 |                 15 | 🔴 investigate |
-| SHP-2025-00751 | CNSHA → GBFXT |            44 |            30.3 |      3.92 |                 15 | 🔴 investigate |
-| SHP-2025-01860 | CNSHA → GBFXT |            44 |            30.3 |      3.92 |                 15 | 🔴 investigate |
 | SHP-2025-03208 | CNSHA → GBFXT |            44 |            30.3 |      3.92 |                 15 | 🔴 investigate |
 | SHP-2025-04396 | CNSHA → GBFXT |            44 |            30.3 |      3.92 |                 16 | 🔴 investigate |
-| SHP-2025-04461 | INNSA → NLRTM |            32 |            17.7 |      3.89 |                 16 | 🔴 investigate |
+| SHP-2025-01860 | CNSHA → GBFXT |            44 |            30.3 |      3.92 |                 15 | 🔴 investigate |
+| SHP-2025-00751 | CNSHA → GBFXT |            44 |            30.3 |      3.92 |                 15 | 🔴 investigate |
 | SHP-2025-01942 | INNSA → NLRTM |            32 |            17.7 |      3.89 |                 16 | 🔴 investigate |
+| SHP-2025-04461 | INNSA → NLRTM |            32 |            17.7 |      3.89 |                 16 | 🔴 investigate |
 
 
 ## 09_aml_screening
@@ -231,7 +231,9 @@
 
 | screen                | customer_name            | invoice_id     | issue_date          |   amount |   evidence_count |   evidence_amount |
 |:----------------------|:-------------------------|:---------------|:--------------------|---------:|-----------------:|------------------:|
-| A · STRUCTURING       | Baltic Commodities S.A.  | INV-2025-90002 | 2025-09-14 00:00:00 |  9424.22 |                3 |          28424.7  |
+| A · STRUCTURING       | Baltic Commodities S.A.  | INV-2025-90000 | 2025-09-10 00:00:00 |  9596.55 |                4 |          37940    |
+| A · STRUCTURING       | Baltic Commodities S.A.  | INV-2025-90001 | 2025-09-12 00:00:00 |  9403.88 |                4 |          37940    |
+| A · STRUCTURING       | Baltic Commodities S.A.  | INV-2025-90002 | 2025-09-14 00:00:00 |  9424.22 |                4 |          37940    |
 | A · STRUCTURING       | Baltic Commodities S.A.  | INV-2025-90003 | 2025-09-16 00:00:00 |  9515.35 |                4 |          37940    |
 | B · DUPLICATE BILLING | Crown Exports Sp. z o.o. | INV-2026-00092 | 2026-05-08 00:00:00 |  3680.41 |                2 |           7360.82 |
 | B · DUPLICATE BILLING | Crown Exports Sp. z o.o. | INV-2025-95001 | 2026-05-11 00:00:00 |  3680.41 |                2 |           7360.82 |
@@ -266,45 +268,45 @@
 
 | port_name   | region   | data_through        |   days_observed |   ctr_calls_per_day |   ctr_calls_yoy_pct |   cargo_kt_per_day |   cargo_yoy_pct |
 |:------------|:---------|:--------------------|----------------:|--------------------:|--------------------:|-------------------:|----------------:|
-| Jebel Ali   | MEA      | 2026-06-26 00:00:00 |              90 |                 1   |               -92.5 |              692.4 |            13.7 |
-| Hamburg     | Europe   | 2026-06-26 00:00:00 |              90 |                 9.5 |                -4   |              375   |             6.8 |
-| Gdansk      | Europe   | 2026-06-26 00:00:00 |              90 |                 2.4 |                -9.7 |              235.1 |             6.8 |
-| Nhava Sheva | Asia     | 2026-06-26 00:00:00 |              90 |                 7   |                -4.7 |              458.8 |             5.8 |
-| Alexandria  | MEA      | 2026-06-26 00:00:00 |              90 |                 3.2 |                -7.3 |              162.8 |             3   |
-| Long Beach  | Americas | 2026-06-26 00:00:00 |              90 |                 5.3 |                 3   |              554   |             3   |
-| Mersin      | MEA      | 2026-06-26 00:00:00 |              90 |                 3.4 |                -7.8 |               85.1 |             2.6 |
-| Santos      | Americas | 2026-06-26 00:00:00 |              90 |                 6.4 |                 0.9 |              449.3 |             2.2 |
-| Singapore   | Asia     | 2026-06-26 00:00:00 |              90 |                39.7 |                -1.1 |             2347   |            -0.6 |
-| Felixstowe  | Europe   | 2026-06-26 00:00:00 |              90 |                 2.4 |                -8.4 |               68.7 |            -2.1 |
-| New York    | Americas | 2026-06-26 00:00:00 |              90 |                 5.9 |               -10.1 |              296.9 |            -2.5 |
-| Busan       | Asia     | 2026-06-26 00:00:00 |              90 |                32   |                -1.8 |              410.5 |            -3.4 |
-| Rotterdam   | Europe   | 2026-06-26 00:00:00 |              90 |                18   |                -3   |              932.2 |            -4.7 |
-| Shenzhen    | Asia     | 2026-06-26 00:00:00 |              90 |                 9.4 |                -6.4 |              118.8 |            -7   |
-| Shanghai    | Asia     | 2026-06-26 00:00:00 |              90 |                34.9 |                -7.7 |             1211.1 |           -22.9 |
-| Odesa       | Europe   | 2026-06-26 00:00:00 |              90 |                 0   |                 —   |                0   |             —   |
+| Alexandria  | MEA      | 2026-07-10 00:00:00 |              90 |                 3.2 |               -11.1 |              181.7 |            20.3 |
+| Nhava Sheva | Asia     | 2026-07-10 00:00:00 |              90 |                 7.6 |                11.1 |              485.9 |            14.6 |
+| Gdansk      | Europe   | 2026-07-10 00:00:00 |              90 |                 2.4 |                -8.4 |              235.1 |             7.6 |
+| Hamburg     | Europe   | 2026-07-10 00:00:00 |              90 |                 9.6 |                -2.6 |              372   |             5.9 |
+| Santos      | Americas | 2026-07-10 00:00:00 |              90 |                 6.4 |                -1   |              451.8 |             3   |
+| Long Beach  | Americas | 2026-07-10 00:00:00 |              90 |                 5.4 |                 0   |              567.8 |             1.4 |
+| Mersin      | MEA      | 2026-07-10 00:00:00 |              90 |                 3.4 |               -11.2 |               84.9 |             1.2 |
+| Singapore   | Asia     | 2026-07-10 00:00:00 |              90 |                39.3 |                -3.2 |             2412.6 |             0.8 |
+| Felixstowe  | Europe   | 2026-07-10 00:00:00 |              90 |                 2.4 |                -8.9 |               71.1 |            -0.1 |
+| New York    | Americas | 2026-07-10 00:00:00 |              90 |                 6   |                -9.6 |              299.5 |            -2.1 |
+| Rotterdam   | Europe   | 2026-07-10 00:00:00 |              90 |                17.9 |                -4.4 |              945.3 |            -2.7 |
+| Busan       | Asia     | 2026-07-10 00:00:00 |              90 |                31.9 |                -2.4 |              401.2 |            -5.1 |
+| Shenzhen    | Asia     | 2026-07-10 00:00:00 |              90 |                 9.5 |                -5.5 |              120.2 |            -7   |
+| Shanghai    | Asia     | 2026-07-10 00:00:00 |              90 |                34   |               -10.3 |             1260.9 |           -19.8 |
+| Jebel Ali   | MEA      | 2026-07-10 00:00:00 |              90 |                 1.3 |               -90.8 |               81.2 |           -86.8 |
+| Odesa       | Europe   | 2026-07-10 00:00:00 |              90 |                 0   |                 —   |                0   |             —   |
 
 
 ## 12 · NETWORK EXPOSURE TO REAL PORT TRENDS — SYNTHETIC ⋈ REAL
 
 *Source: `analytics/12_network_exposure_real.sql`*
 
-| port_name   | region   |   shipments_180d |   cbm_180d |   share_of_book_pct |   real_calls_yoy_pct | real_world_signal               |
-|:------------|:---------|-----------------:|-----------:|--------------------:|---------------------:|:--------------------------------|
-| Rotterdam   | Europe   |              794 |     15,123 |                21.9 |                 -3   | stable                          |
-| Shanghai    | Asia     |              657 |     11,923 |                17.3 |                 -7.7 | !  softening                    |
-| Hamburg     | Europe   |              442 |      8,437 |                12.2 |                 -4   | !  softening                    |
-| Odesa       | Europe   |              448 |      7,974 |                11.6 |                  —   | baseline too short              |
-| Long Beach  | Americas |              245 |      4,462 |                 6.5 |                  3   | stable                          |
-| Shenzhen    | Asia     |              177 |      3,387 |                 4.9 |                 -6.4 | !  softening                    |
-| Nhava Sheva | Asia     |              145 |      2,919 |                 4.2 |                 -4.7 | !  softening                    |
-| New York    | Americas |              161 |      2,868 |                 4.2 |                -10.1 | !! declining traffic            |
-| Felixstowe  | Europe   |              127 |      2,492 |                 3.6 |                 -8.4 | !  softening                    |
-| Busan       | Asia     |               96 |      2,176 |                 3.2 |                 -1.8 | stable                          |
-| Mersin      | MEA      |              109 |      2,061 |                 3   |                 -7.8 | !  softening                    |
-| Gdansk      | Europe   |               80 |      1,521 |                 2.2 |                 -9.7 | !  softening                    |
-| Alexandria  | MEA      |               80 |      1,521 |                 2.2 |                 -7.3 | !  softening                    |
-| Singapore   | Asia     |               66 |      1,264 |                 1.8 |                 -1.1 | stable                          |
-| Jebel Ali   | MEA      |               45 |        832 |                 1.2 |                -92.5 | ?  feed anomaly — verify source |
+| port_name   | region   |   shipments_180d |   cbm_180d |   share_of_book_pct |   real_calls_yoy_pct | real_world_signal            |
+|:------------|:---------|-----------------:|-----------:|--------------------:|---------------------:|:-----------------------------|
+| Rotterdam   | Europe   |              794 |     15,123 |                21.9 |                 -4.4 | !  softening                 |
+| Shanghai    | Asia     |              657 |     11,923 |                17.3 |                -10.3 | !! declining traffic         |
+| Hamburg     | Europe   |              442 |      8,437 |                12.2 |                 -2.6 | stable                       |
+| Odesa       | Europe   |              448 |      7,974 |                11.6 |                  —   | baseline too short           |
+| Long Beach  | Americas |              245 |      4,462 |                 6.5 |                  0   | stable                       |
+| Shenzhen    | Asia     |              177 |      3,387 |                 4.9 |                 -5.5 | !  softening                 |
+| Nhava Sheva | Asia     |              145 |      2,919 |                 4.2 |                 11.1 | ▲ surging (congestion watch) |
+| New York    | Americas |              161 |      2,868 |                 4.2 |                 -9.6 | !  softening                 |
+| Felixstowe  | Europe   |              127 |      2,492 |                 3.6 |                 -8.9 | !  softening                 |
+| Busan       | Asia     |               96 |      2,176 |                 3.2 |                 -2.4 | stable                       |
+| Mersin      | MEA      |              109 |      2,061 |                 3   |                -11.2 | !! declining traffic         |
+| Gdansk      | Europe   |               80 |      1,521 |                 2.2 |                 -8.4 | !  softening                 |
+| Alexandria  | MEA      |               80 |      1,521 |                 2.2 |                -11.1 | !! declining traffic         |
+| Singapore   | Asia     |               66 |      1,264 |                 1.8 |                 -3.2 | !  softening                 |
+| Jebel Ali   | MEA      |               45 |        832 |                 1.2 |                -90.8 | !! declining traffic         |
 
 
 ## 13 · CHOKEPOINT EXPOSURE — HOW MUCH OF OUR BOOK SAILS THROUGH EACH STRAIT?
@@ -313,14 +315,14 @@
 
 | chokepoint           |   lanes |   shipments_180d |   cbm_180d |   share_of_book_pct |   transits_per_day |   transits_yoy_pct | real_world_signal                      |
 |:---------------------|--------:|-----------------:|-----------:|--------------------:|-------------------:|-------------------:|:---------------------------------------|
-| Dover Strait         |       9 |             1287 |     24,585 |                71.3 |               35.4 |               -6   | stable                                 |
-| Gibraltar Strait     |       8 |             1126 |     21,717 |                63   |               31.5 |               -6.6 | stable                                 |
-| Suez Canal           |       7 |              941 |     18,038 |                52.3 |                8.2 |               -8.7 | !  transits falling                    |
-| Bab el-Mandeb Strait |       7 |              941 |     18,038 |                52.3 |                5.7 |              -13   | !  transits falling                    |
-| Malacca Strait       |       5 |              751 |     14,288 |                41.4 |               60   |               -3.5 | stable                                 |
-| Bosporus Strait      |       3 |              292 |      4,985 |                14.5 |               10.4 |                1.3 | stable                                 |
-| Oresund Strait       |       2 |              236 |      4,510 |                13.1 |                5.3 |               -6.7 | stable                                 |
-| Strait of Hormuz     |       2 |              190 |      3,750 |                10.9 |                1.4 |              -93.2 | !! transits collapsing — re-route risk |
+| Dover Strait         |       9 |             1287 |     24,585 |                71.3 |               35.7 |               -5   | stable                                 |
+| Gibraltar Strait     |       8 |             1126 |     21,717 |                63   |               31.5 |               -5.9 | stable                                 |
+| Suez Canal           |       7 |              941 |     18,038 |                52.3 |                8.4 |               -7.5 | stable                                 |
+| Bab el-Mandeb Strait |       7 |              941 |     18,038 |                52.3 |                5.6 |              -15.7 | !  transits falling                    |
+| Malacca Strait       |       5 |              751 |     14,288 |                41.4 |               60   |               -3.3 | stable                                 |
+| Bosporus Strait      |       3 |              292 |      4,985 |                14.5 |               10.4 |                2   | stable                                 |
+| Oresund Strait       |       2 |              236 |      4,510 |                13.1 |                5.3 |               -5   | stable                                 |
+| Strait of Hormuz     |       2 |              190 |      3,750 |                10.9 |                1.3 |              -93.5 | !! transits collapsing — re-route risk |
 
 
 ## 13_door_to_door_routing
