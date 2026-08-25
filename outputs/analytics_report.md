@@ -1,6 +1,6 @@
 # Freight Network Analytics — Query Results
 
-*Generated 2026-08-18 17:32 · real data through **2026-08-14***
+*Generated 2026-08-25 17:37 · real data through **2026-08-14***
 
 <details><summary><b>Port codes used in this report</b></summary>
 
@@ -102,11 +102,11 @@
 | segment              |   customers |   shipments |      revenue_usd |   revenue_share_pct |   class_a_customers |   class_b_customers |   class_c_customers |
 |:---------------------|------------:|------------:|-----------------:|--------------------:|--------------------:|--------------------:|--------------------:|
 | Champion             |          16 |        2658 |      4.63929e+06 |                52.4 |                  16 |                   0 |                   0 |
-| Core                 |          22 |         926 |      1.48753e+06 |                16.8 |                   7 |                   9 |                   6 |
+| Core                 |          22 |         923 |      1.4919e+06  |                16.8 |                   7 |                   9 |                   6 |
 | At Risk (high value) |          11 |         613 |      1.11686e+06 |                12.6 |                  11 |                   0 |                   0 |
 | Dormant              |          15 |         447 | 731413           |                 8.3 |                   3 |                   9 |                   3 |
-| Loyal                |          10 |         371 | 581320           |                 6.6 |                   5 |                   4 |                   1 |
-| New / Developing     |           6 |         185 | 305497           |                 3.4 |                   1 |                   3 |                   2 |
+| Loyal                |          10 |         374 | 605517           |                 6.8 |                   6 |                   4 |                   0 |
+| New / Developing     |           6 |         185 | 276932           |                 3.1 |                   0 |                   3 |                   3 |
 
 
 ## 05_cohort_retention
@@ -275,8 +275,8 @@
 | Mersin      | MEA      | 2026-08-14 00:00:00 |              90 |                 3.5 |               -14.2 |               90.8 |             4.2 |
 | Long Beach  | Americas | 2026-08-14 00:00:00 |              90 |                 5.4 |                -3.4 |              576.2 |             1.6 |
 | Rotterdam   | Europe   | 2026-08-14 00:00:00 |              90 |                17.8 |                -3.4 |              960.3 |             0.1 |
-| New York    | Americas | 2026-08-14 00:00:00 |              90 |                 6   |                -8.7 |              292.7 |            -1.1 |
 | Busan       | Asia     | 2026-08-14 00:00:00 |              90 |                30.5 |                -6.4 |              401.5 |            -1.1 |
+| New York    | Americas | 2026-08-14 00:00:00 |              90 |                 6   |                -8.7 |              292.7 |            -1.1 |
 | Santos      | Americas | 2026-08-14 00:00:00 |              90 |                 6.1 |                -3.3 |              436.5 |            -2   |
 | Alexandria  | MEA      | 2026-08-14 00:00:00 |              90 |                 3.2 |               -18.5 |              143.6 |            -5.3 |
 | Singapore   | Asia     | 2026-08-14 00:00:00 |              90 |                37.8 |                -6.4 |             2279.8 |            -6   |
