@@ -3,23 +3,23 @@ transit_date,chokepoint_code,portwatch_id,portwatch_name,n_container,n_cargo,n_t
 2024-07-01,BOSPOR,chokepoint3,Bosporus Strait,11,60,78,79620
 2024-07-01,DOVER,chokepoint9,Dover Strait,38,117,176,728896
 2024-07-01,GIBRAL,chokepoint8,Gibraltar Strait,36,85,130,1204844
-2024-07-01,HORMUZ,chokepoint6,Strait of Hormuz,26,48,92,696626
-2024-07-01,MALACC,chokepoint5,Malacca Strait,65,158,240,1568292
+2024-07-01,HORMUZ,chokepoint6,Strait of Hormuz,26,48,92,679799
+2024-07-01,MALACC,chokepoint5,Malacca Strait,65,158,240,1568456
 2024-07-01,ORESUN,chokepoint10,Oresund Strait,2,33,48,6402
 2024-07-01,SUEZ,chokepoint1,Suez Canal,13,32,44,225670
 2024-07-02,BABMND,chokepoint4,Bab el-Mandeb Strait,6,24,33,65853
 2024-07-02,BOSPOR,chokepoint3,Bosporus Strait,10,80,103,94282
 2024-07-02,DOVER,chokepoint9,Dover Strait,28,102,184,622728
 2024-07-02,GIBRAL,chokepoint8,Gibraltar Strait,28,87,138,1118985
-2024-07-02,HORMUZ,chokepoint6,Strait of Hormuz,23,53,131,480949
-2024-07-02,MALACC,chokepoint5,Malacca Strait,62,161,244,1773159
+2024-07-02,HORMUZ,chokepoint6,Strait of Hormuz,23,53,131,479211
+2024-07-02,MALACC,chokepoint5,Malacca Strait,62,161,244,1773103
 2024-07-02,ORESUN,chokepoint10,Oresund Strait,5,35,50,7338
 2024-07-02,SUEZ,chokepoint1,Suez Canal,12,32,40,135760
 2024-07-03,BABMND,chokepoint4,Bab el-Mandeb Strait,7,18,27,87943
 2024-07-03,BOSPOR,chokepoint3,Bosporus Strait,7,78,106,48015
 2024-07-03,DOVER,chokepoint9,Dover Strait,45,117,180,1467619
 2024-07-03,GIBRAL,chokepoint8,Gibraltar Strait,30,89,126,695384
-2024-07-03,HORMUZ,chokepoint6,Strait of Hormuz,19,44,106,561323
+2024-07-03,HORMUZ,chokepoint6,Strait of Hormuz,19,44,106,575224
 2024-07-03,MALACC,chokepoint5,Malacca Strait,49,140,222,2151402
 2024-07-03,ORESUN,chokepoint10,Oresund Strait,6,25,37,12821
 2024-07-03,SUEZ,chokepoint1,Suez Canal,4,17,33,162279
@@ -28,7 +28,7 @@ transit_date,chokepoint_code,portwatch_id,portwatch_name,n_container,n_cargo,n_t
 2024-07-04,DOVER,chokepoint9,Dover Strait,34,99,157,1362051
 2024-07-04,GIBRAL,chokepoint8,Gibraltar Strait,37,83,131,797138
 2024-07-04,HORMUZ,chokepoint6,Strait of Hormuz,15,37,110,399547
-2024-07-04,MALACC,chokepoint5,Malacca Strait,57,143,228,1799803
+2024-07-04,MALACC,chokepoint5,Malacca Strait,57,143,228,1808092
 2024-07-04,ORESUN,chokepoint10,Oresund Strait,4,30,38,5739
 2024-07-04,SUEZ,chokepoint1,Suez Canal,10,27,39,324590
 2024-07-05,BABMND,chokepoint4,Bab el-Mandeb Strait,2,15,33,20013
@@ -36,7 +36,7 @@ transit_date,chokepoint_code,portwatch_id,portwatch_name,n_container,n_cargo,n_t
 2024-07-05,DOVER,chokepoint9,Dover Strait,37,125,183,640122
 2024-07-05,GIBRAL,chokepoint8,Gibraltar Strait,33,97,141,946921
 2024-07-05,HORMUZ,chokepoint6,Strait of Hormuz,16,36,89,373036
-2024-07-05,MALACC,chokepoint5,Malacca Strait,59,142,232,1826080
+2024-07-05,MALACC,chokepoint5,Malacca Strait,59,142,232,1849930
 2024-07-05,ORESUN,chokepoint10,Oresund Strait,3,32,44,5445
 2024-07-05,SUEZ,chokepoint1,Suez Canal,7,23,39,146865
 2024-07-06,BABMND,chokepoint4,Bab el-Mandeb Strait,6,24,35,112824
@@ -44,7 +44,7 @@ transit_date,chokepoint_code,portwatch_id,portwatch_name,n_container,n_cargo,n_t
 2024-07-06,DOVER,chokepoint9,Dover Strait,31,109,176,808965
 2024-07-06,GIBRAL,chokepoint8,Gibraltar Strait,37,87,131,1249387
 2024-07-06,HORMUZ,chokepoint6,Strait of Hormuz,20,48,109,578220
-2024-07-06,MALACC,chokepoint5,Malacca Strait,61,133,222,1779985
+2024-07-06,MALACC,chokepoint5,Malacca Strait,61,133,222,1789420
 2024-07-06,ORESUN,chokepoint10,Oresund Strait,8,38,51,14388
 2024-07-06,SUEZ,chokepoint1,Suez Canal,7,27,40,333267
 2024-07-07,BABMND,chokepoint4,Bab el-Mandeb Strait,8,20,29,121749
@@ -52,15 +52,15 @@ transit_date,chokepoint_code,portwatch_id,portwatch_name,n_container,n_cargo,n_t
 2024-07-07,DOVER,chokepoint9,Dover Strait,40,120,184,1255750
 2024-07-07,GIBRAL,chokepoint8,Gibraltar Strait,34,92,131,915945
 2024-07-07,HORMUZ,chokepoint6,Strait of Hormuz,18,36,104,395162
-2024-07-07,MALACC,chokepoint5,Malacca Strait,71,151,248,1504434
+2024-07-07,MALACC,chokepoint5,Malacca Strait,71,151,248,1529186
 2024-07-07,ORESUN,chokepoint10,Oresund Strait,6,33,44,6486
 2024-07-07,SUEZ,chokepoint1,Suez Canal,5,17,30,32533
 2024-07-08,BABMND,chokepoint4,Bab el-Mandeb Strait,10,20,33,129838
 2024-07-08,BOSPOR,chokepoint3,Bosporus Strait,3,63,91,16100
 2024-07-08,DOVER,chokepoint9,Dover Strait,37,122,181,1005559
 2024-07-08,GIBRAL,chokepoint8,Gibraltar Strait,38,93,146,1089437
-2024-07-08,HORMUZ,chokepoint6,Strait of Hormuz,25,39,99,709366
-2024-07-08,MALACC,chokepoint5,Malacca Strait,61,146,226,1758217
+2024-07-08,HORMUZ,chokepoint6,Strait of Hormuz,25,39,99,705988
+2024-07-08,MALACC,chokepoint5,Malacca Strait,61,146,225,1755411
 2024-07-08,ORESUN,chokepoint10,Oresund Strait,4,41,54,9048
 2024-07-08,SUEZ,chokepoint1,Suez Canal,11,22,30,178770
 2024-07-09,BABMND,chokepoint4,Bab el-Mandeb Strait,6,22,28,103635
@@ -68,15 +68,15 @@ transit_date,chokepoint_code,portwatch_id,portwatch_name,n_container,n_cargo,n_t
 2024-07-09,DOVER,chokepoint9,Dover Strait,31,103,161,724570
 2024-07-09,GIBRAL,chokepoint8,Gibraltar Strait,25,73,111,953893
 2024-07-09,HORMUZ,chokepoint6,Strait of Hormuz,25,51,127,575283
-2024-07-09,MALACC,chokepoint5,Malacca Strait,67,151,237,1942823
+2024-07-09,MALACC,chokepoint5,Malacca Strait,67,151,237,1946819
 2024-07-09,ORESUN,chokepoint10,Oresund Strait,5,38,55,16045
 2024-07-09,SUEZ,chokepoint1,Suez Canal,11,26,42,249808
 2024-07-10,BABMND,chokepoint4,Bab el-Mandeb Strait,4,17,32,64683
 2024-07-10,BOSPOR,chokepoint3,Bosporus Strait,12,63,85,102093
 2024-07-10,DOVER,chokepoint9,Dover Strait,31,100,166,741987
 2024-07-10,GIBRAL,chokepoint8,Gibraltar Strait,32,91,139,902330
-2024-07-10,HORMUZ,chokepoint6,Strait of Hormuz,17,36,96,391626
-2024-07-10,MALACC,chokepoint5,Malacca Strait,69,168,246,1905351
+2024-07-10,HORMUZ,chokepoint6,Strait of Hormuz,17,36,96,386649
+2024-07-10,MALACC,chokepoint5,Malacca Strait,69,168,246,1905438
 2024-07-10,ORESUN,chokepoint10,Oresund Strait,2,24,30,5518
 2024-07-10,SUEZ,chokepoint1,Suez Canal,9,22,30,215486
 2024-07-11,BABMND,chokepoint4,Bab el-Mandeb Strait,3,21,28,39656
@@ -84,23 +84,23 @@ transit_date,chokepoint_code,portwatch_id,portwatch_name,n_container,n_cargo,n_t
 2024-07-11,DOVER,chokepoint9,Dover Strait,29,106,160,809976
 2024-07-11,GIBRAL,chokepoint8,Gibraltar Strait,34,83,124,1081683
 2024-07-11,HORMUZ,chokepoint6,Strait of Hormuz,25,60,130,781099
-2024-07-11,MALACC,chokepoint5,Malacca Strait,54,141,210,1676255
+2024-07-11,MALACC,chokepoint5,Malacca Strait,54,141,210,1684221
 2024-07-11,ORESUN,chokepoint10,Oresund Strait,3,44,57,9902
 2024-07-11,SUEZ,chokepoint1,Suez Canal,9,20,46,163219
 2024-07-12,BABMND,chokepoint4,Bab el-Mandeb Strait,4,15,28,53379
 2024-07-12,BOSPOR,chokepoint3,Bosporus Strait,5,70,91,29487
 2024-07-12,DOVER,chokepoint9,Dover Strait,40,104,174,1140478
 2024-07-12,GIBRAL,chokepoint8,Gibraltar Strait,27,97,137,802306
-2024-07-12,HORMUZ,chokepoint6,Strait of Hormuz,18,34,97,562326
-2024-07-12,MALACC,chokepoint5,Malacca Strait,50,133,200,1442951
+2024-07-12,HORMUZ,chokepoint6,Strait of Hormuz,18,34,97,561563
+2024-07-12,MALACC,chokepoint5,Malacca Strait,50,133,199,1455107
 2024-07-12,ORESUN,chokepoint10,Oresund Strait,2,27,37,2738
 2024-07-12,SUEZ,chokepoint1,Suez Canal,11,28,40,239973
 2024-07-13,BABMND,chokepoint4,Bab el-Mandeb Strait,5,14,35,81233
 2024-07-13,BOSPOR,chokepoint3,Bosporus Strait,10,61,79,112428
 2024-07-13,DOVER,chokepoint9,Dover Strait,31,102,158,865305
 2024-07-13,GIBRAL,chokepoint8,Gibraltar Strait,33,94,145,1170082
-2024-07-13,HORMUZ,chokepoint6,Strait of Hormuz,20,48,105,549705
-2024-07-13,MALACC,chokepoint5,Malacca Strait,59,145,233,2175131
+2024-07-13,HORMUZ,chokepoint6,Strait of Hormuz,20,48,105,557909
+2024-07-13,MALACC,chokepoint5,Malacca Strait,59,146,234,2176212
 2024-07-13,ORESUN,chokepoint10,Oresund Strait,7,41,49,13831
 2024-07-13,SUEZ,chokepoint1,Suez Canal,6,20,37,262819
 2024-07-14,BABMND,chokepoint4,Bab el-Mandeb Strait,6,29,39,63002
@@ -108,7 +108,7 @@ transit_date,chokepoint_code,portwatch_id,portwatch_name,n_container,n_cargo,n_t
 2024-07-14,DOVER,chokepoint9,Dover Strait,35,105,170,810549
 2024-07-14,GIBRAL,chokepoint8,Gibraltar Strait,35,100,139,971492
 2024-07-14,HORMUZ,chokepoint6,Strait of Hormuz,18,40,109,367383
-2024-07-14,MALACC,chokepoint5,Malacca Strait,63,161,246,2207613
+2024-07-14,MALACC,chokepoint5,Malacca Strait,63,161,246,2217680
 2024-07-14,ORESUN,chokepoint10,Oresund Strait,6,30,41,14157
 2024-07-14,SUEZ,chokepoint1,Suez Canal,11,23,35,198043
 2024-07-15,BABMND,chokepoint4,Bab el-Mandeb Strait,9,21,35,94393
@@ -116,15 +116,15 @@ transit_date,chokepoint_code,portwatch_id,portwatch_name,n_container,n_cargo,n_t
 2024-07-15,DOVER,chokepoint9,Dover Strait,42,91,141,1218839
 2024-07-15,GIBRAL,chokepoint8,Gibraltar Strait,35,93,139,921873
 2024-07-15,HORMUZ,chokepoint6,Strait of Hormuz,11,33,97,234044
-2024-07-15,MALACC,chokepoint5,Malacca Strait,67,151,220,1980591
+2024-07-15,MALACC,chokepoint5,Malacca Strait,67,151,220,2008407
 2024-07-15,ORESUN,chokepoint10,Oresund Strait,2,23,30,2136
 2024-07-15,SUEZ,chokepoint1,Suez Canal,12,24,32,221117
-2024-07-16,BABMND,chokepoint4,Bab el-Mandeb Strait,7,19,28,89545
+2024-07-16,BABMND,chokepoint4,Bab el-Mandeb Strait,7,19,28,87269
 2024-07-16,BOSPOR,chokepoint3,Bosporus Strait,11,63,90,70652
 2024-07-16,DOVER,chokepoint9,Dover Strait,33,101,162,830342
 2024-07-16,GIBRAL,chokepoint8,Gibraltar Strait,37,83,123,1175101
-2024-07-16,HORMUZ,chokepoint6,Strait of Hormuz,16,44,108,377295
-2024-07-16,MALACC,chokepoint5,Malacca Strait,53,137,217,1734548
+2024-07-16,HORMUZ,chokepoint6,Strait of Hormuz,16,44,108,371448
+2024-07-16,MALACC,chokepoint5,Malacca Strait,53,137,217,1733020
 2024-07-16,ORESUN,chokepoint10,Oresund Strait,7,33,44,8505
 2024-07-16,SUEZ,chokepoint1,Suez Canal,9,27,38,160692
 2024-07-17,BABMND,chokepoint4,Bab el-Mandeb Strait,6,14,22,68516
@@ -132,15 +132,15 @@ transit_date,chokepoint_code,portwatch_id,portwatch_name,n_container,n_cargo,n_t
 2024-07-17,DOVER,chokepoint9,Dover Strait,26,102,162,850246
 2024-07-17,GIBRAL,chokepoint8,Gibraltar Strait,26,71,114,780350
 2024-07-17,HORMUZ,chokepoint6,Strait of Hormuz,17,52,120,482011
-2024-07-17,MALACC,chokepoint5,Malacca Strait,64,153,225,1761616
+2024-07-17,MALACC,chokepoint5,Malacca Strait,64,153,225,1785391
 2024-07-17,ORESUN,chokepoint10,Oresund Strait,4,29,41,10608
 2024-07-17,SUEZ,chokepoint1,Suez Canal,5,17,33,144600
-2024-07-18,BABMND,chokepoint4,Bab el-Mandeb Strait,7,19,29,112430
+2024-07-18,BABMND,chokepoint4,Bab el-Mandeb Strait,7,19,29,114487
 2024-07-18,BOSPOR,chokepoint3,Bosporus Strait,13,91,111,108702
 2024-07-18,DOVER,chokepoint9,Dover Strait,32,108,176,748777
 2024-07-18,GIBRAL,chokepoint8,Gibraltar Strait,35,93,136,1128038
-2024-07-18,HORMUZ,chokepoint6,Strait of Hormuz,17,39,97,479809
-2024-07-18,MALACC,chokepoint5,Malacca Strait,65,139,237,1786279
+2024-07-18,HORMUZ,chokepoint6,Strait of Hormuz,17,39,96,477813
+2024-07-18,MALACC,chokepoint5,Malacca Strait,65,139,237,1783886
 2024-07-18,ORESUN,chokepoint10,Oresund Strait,3,21,31,10093
 2024-07-18,SUEZ,chokepoint1,Suez Canal,9,21,36,175362
 2024-07-19,BABMND,chokepoint4,Bab el-Mandeb Strait,4,16,30,44036
@@ -148,7 +148,7 @@ transit_date,chokepoint_code,portwatch_id,portwatch_name,n_container,n_cargo,n_t
 2024-07-19,DOVER,chokepoint9,Dover Strait,34,103,158,772829
 2024-07-19,GIBRAL,chokepoint8,Gibraltar Strait,31,88,130,741230
 2024-07-19,HORMUZ,chokepoint6,Strait of Hormuz,17,38,98,292516
-2024-07-19,MALACC,chokepoint5,Malacca Strait,57,143,230,1732172
+2024-07-19,MALACC,chokepoint5,Malacca Strait,57,143,230,1710376
 2024-07-19,ORESUN,chokepoint10,Oresund Strait,3,36,47,9260
 2024-07-19,SUEZ,chokepoint1,Suez Canal,12,29,42,333609
 2024-07-20,BABMND,chokepoint4,Bab el-Mandeb Strait,8,20,33,138345
@@ -156,7 +156,7 @@ transit_date,chokepoint_code,portwatch_id,portwatch_name,n_container,n_cargo,n_t
 2024-07-20,DOVER,chokepoint9,Dover Strait,36,134,211,998439
 2024-07-20,GIBRAL,chokepoint8,Gibraltar Strait,33,72,124,656410
 2024-07-20,HORMUZ,chokepoint6,Strait of Hormuz,18,37,96,403306
-2024-07-20,MALACC,chokepoint5,Malacca Strait,56,162,231,1414755
+2024-07-20,MALACC,chokepoint5,Malacca Strait,56,162,231,1401707
 2024-07-20,ORESUN,chokepoint10,Oresund Strait,8,37,46,15084
 2024-07-20,SUEZ,chokepoint1,Suez Canal,6,24,41,77859
 2024-07-21,BABMND,chokepoint4,Bab el-Mandeb Strait,3,14,27,33815
@@ -164,7 +164,7 @@ transit_date,chokepoint_code,portwatch_id,portwatch_name,n_container,n_cargo,n_t
 2024-07-21,DOVER,chokepoint9,Dover Strait,34,105,163,838777
 2024-07-21,GIBRAL,chokepoint8,Gibraltar Strait,29,90,126,690930
 2024-07-21,HORMUZ,chokepoint6,Strait of Hormuz,17,43,102,609000
-2024-07-21,MALACC,chokepoint5,Malacca Strait,60,134,220,1724810
+2024-07-21,MALACC,chokepoint5,Malacca Strait,60,134,220,1759785
 2024-07-21,ORESUN,chokepoint10,Oresund Strait,7,31,42,16459
 2024-07-21,SUEZ,chokepoint1,Suez Canal,7,24,41,146259
 2024-07-22,BABMND,chokepoint4,Bab el-Mandeb Strait,4,18,28,44033
@@ -172,7 +172,7 @@ transit_date,chokepoint_code,portwatch_id,portwatch_name,n_container,n_cargo,n_t
 2024-07-22,DOVER,chokepoint9,Dover Strait,33,73,139,830878
 2024-07-22,GIBRAL,chokepoint8,Gibraltar Strait,26,84,124,580068
 2024-07-22,HORMUZ,chokepoint6,Strait of Hormuz,17,38,92,659399
-2024-07-22,MALACC,chokepoint5,Malacca Strait,63,154,228,2076247
+2024-07-22,MALACC,chokepoint5,Malacca Strait,63,154,228,2079219
 2024-07-22,ORESUN,chokepoint10,Oresund Strait,2,29,35,5097
 2024-07-22,SUEZ,chokepoint1,Suez Canal,7,22,34,87075
 2024-07-23,BABMND,chokepoint4,Bab el-Mandeb Strait,6,17,29,101234
@@ -352,7 +352,7 @@ transit_date,chokepoint_code,portwatch_id,portwatch_name,n_container,n_cargo,n_t
 2024-08-13,ORESUN,chokepoint10,Oresund Strait,6,23,35,10486
 2024-08-13,SUEZ,chokepoint1,Suez Canal,12,28,49,247222
 2024-08-14,BABMND,chokepoint4,Bab el-Mandeb Strait,6,20,29,87777
-2024-08-14,BOSPOR,chokepoint3,Bosporus Strait,9,80,111,85013
+2024-08-14,BOSPOR,chokepoint3,Bosporus Strait,8,79,110,75542
 2024-08-14,DOVER,chokepoint9,Dover Strait,31,105,171,980488
 2024-08-14,GIBRAL,chokepoint8,Gibraltar Strait,32,87,119,851198
 2024-08-14,HORMUZ,chokepoint6,Strait of Hormuz,21,41,89,562416
@@ -360,7 +360,7 @@ transit_date,chokepoint_code,portwatch_id,portwatch_name,n_container,n_cargo,n_t
 2024-08-14,ORESUN,chokepoint10,Oresund Strait,3,30,48,6317
 2024-08-14,SUEZ,chokepoint1,Suez Canal,10,26,42,242804
 2024-08-15,BABMND,chokepoint4,Bab el-Mandeb Strait,10,19,27,161277
-2024-08-15,BOSPOR,chokepoint3,Bosporus Strait,6,66,86,36688
+2024-08-15,BOSPOR,chokepoint3,Bosporus Strait,7,67,87,46159
 2024-08-15,DOVER,chokepoint9,Dover Strait,34,103,164,915265
 2024-08-15,GIBRAL,chokepoint8,Gibraltar Strait,36,91,143,1344300
 2024-08-15,HORMUZ,chokepoint6,Strait of Hormuz,12,19,65,382664
@@ -1140,7 +1140,7 @@ transit_date,chokepoint_code,portwatch_id,portwatch_name,n_container,n_cargo,n_t
 2024-11-20,DOVER,chokepoint9,Dover Strait,44,120,176,1673714
 2024-11-20,GIBRAL,chokepoint8,Gibraltar Strait,32,85,124,978819
 2024-11-20,HORMUZ,chokepoint6,Strait of Hormuz,11,29,75,363378
-2024-11-20,MALACC,chokepoint5,Malacca Strait,68,161,260,1573006
+2024-11-20,MALACC,chokepoint5,Malacca Strait,68,162,261,1573006
 2024-11-20,ORESUN,chokepoint10,Oresund Strait,3,43,56,4554
 2024-11-20,SUEZ,chokepoint1,Suez Canal,6,18,28,187248
 2024-11-21,BABMND,chokepoint4,Bab el-Mandeb Strait,6,19,26,167175
@@ -1456,7 +1456,7 @@ transit_date,chokepoint_code,portwatch_id,portwatch_name,n_container,n_cargo,n_t
 2024-12-29,ORESUN,chokepoint10,Oresund Strait,2,28,37,5570
 2024-12-29,SUEZ,chokepoint1,Suez Canal,9,16,28,125942
 2024-12-30,BABMND,chokepoint4,Bab el-Mandeb Strait,8,22,39,80243
-2024-12-30,BOSPOR,chokepoint3,Bosporus Strait,6,74,98,35048
+2024-12-30,BOSPOR,chokepoint3,Bosporus Strait,6,74,97,35048
 2024-12-30,DOVER,chokepoint9,Dover Strait,34,87,129,777725
 2024-12-30,GIBRAL,chokepoint8,Gibraltar Strait,38,108,142,769254
 2024-12-30,HORMUZ,chokepoint6,Strait of Hormuz,17,42,82,502611
@@ -1472,7 +1472,7 @@ transit_date,chokepoint_code,portwatch_id,portwatch_name,n_container,n_cargo,n_t
 2024-12-31,ORESUN,chokepoint10,Oresund Strait,5,29,37,7103
 2024-12-31,SUEZ,chokepoint1,Suez Canal,4,14,24,25026
 2025-01-01,BABMND,chokepoint4,Bab el-Mandeb Strait,5,30,46,72003
-2025-01-01,BOSPOR,chokepoint3,Bosporus Strait,5,61,73,43570
+2025-01-01,BOSPOR,chokepoint3,Bosporus Strait,5,61,74,43570
 2025-01-01,DOVER,chokepoint9,Dover Strait,26,89,142,794520
 2025-01-01,GIBRAL,chokepoint8,Gibraltar Strait,35,88,133,795090
 2025-01-01,HORMUZ,chokepoint6,Strait of Hormuz,18,34,75,324803
@@ -1624,11 +1624,11 @@ transit_date,chokepoint_code,portwatch_id,portwatch_name,n_container,n_cargo,n_t
 2025-01-19,ORESUN,chokepoint10,Oresund Strait,6,36,49,16497
 2025-01-19,SUEZ,chokepoint1,Suez Canal,10,26,38,223215
 2025-01-20,BABMND,chokepoint4,Bab el-Mandeb Strait,5,20,28,57924
-2025-01-20,BOSPOR,chokepoint3,Bosporus Strait,13,75,91,65040
+2025-01-20,BOSPOR,chokepoint3,Bosporus Strait,13,76,92,65040
 2025-01-20,DOVER,chokepoint9,Dover Strait,35,104,152,780743
 2025-01-20,GIBRAL,chokepoint8,Gibraltar Strait,39,84,138,1409453
 2025-01-20,HORMUZ,chokepoint6,Strait of Hormuz,15,27,72,380816
-2025-01-20,MALACC,chokepoint5,Malacca Strait,72,165,247,1860875
+2025-01-20,MALACC,chokepoint5,Malacca Strait,72,166,248,1860875
 2025-01-20,ORESUN,chokepoint10,Oresund Strait,4,37,57,10361
 2025-01-20,SUEZ,chokepoint1,Suez Canal,10,25,38,216612
 2025-01-21,BABMND,chokepoint4,Bab el-Mandeb Strait,12,25,35,170099
@@ -2148,7 +2148,7 @@ transit_date,chokepoint_code,portwatch_id,portwatch_name,n_container,n_cargo,n_t
 2025-03-26,DOVER,chokepoint9,Dover Strait,33,105,176,769307
 2025-03-26,GIBRAL,chokepoint8,Gibraltar Strait,37,97,146,807087
 2025-03-26,HORMUZ,chokepoint6,Strait of Hormuz,16,32,56,511665
-2025-03-26,MALACC,chokepoint5,Malacca Strait,62,159,249,1932202
+2025-03-26,MALACC,chokepoint5,Malacca Strait,62,158,248,1932202
 2025-03-26,ORESUN,chokepoint10,Oresund Strait,5,35,44,12298
 2025-03-26,SUEZ,chokepoint1,Suez Canal,11,24,41,349180
 2025-03-27,BABMND,chokepoint4,Bab el-Mandeb Strait,10,24,32,128709
@@ -3275,7 +3275,7 @@ transit_date,chokepoint_code,portwatch_id,portwatch_name,n_container,n_cargo,n_t
 2025-08-14,BOSPOR,chokepoint3,Bosporus Strait,13,57,83,64808
 2025-08-14,DOVER,chokepoint9,Dover Strait,27,98,156,420585
 2025-08-14,GIBRAL,chokepoint8,Gibraltar Strait,38,101,147,1225387
-2025-08-14,HORMUZ,chokepoint6,Strait of Hormuz,16,47,104,352953
+2025-08-14,HORMUZ,chokepoint6,Strait of Hormuz,16,46,103,352953
 2025-08-14,MALACC,chokepoint5,Malacca Strait,61,158,229,1428241
 2025-08-14,ORESUN,chokepoint10,Oresund Strait,7,38,56,9960
 2025-08-14,SUEZ,chokepoint1,Suez Canal,10,25,43,255974
@@ -3900,7 +3900,7 @@ transit_date,chokepoint_code,portwatch_id,portwatch_name,n_container,n_cargo,n_t
 2025-10-31,DOVER,chokepoint9,Dover Strait,43,128,195,1306009
 2025-10-31,GIBRAL,chokepoint8,Gibraltar Strait,42,113,154,1363538
 2025-10-31,HORMUZ,chokepoint6,Strait of Hormuz,16,38,80,462189
-2025-10-31,MALACC,chokepoint5,Malacca Strait,48,141,221,1336350
+2025-10-31,MALACC,chokepoint5,Malacca Strait,48,142,222,1336350
 2025-10-31,ORESUN,chokepoint10,Oresund Strait,12,39,52,13617
 2025-10-31,SUEZ,chokepoint1,Suez Canal,8,19,35,118661
 2025-11-01,BABMND,chokepoint4,Bab el-Mandeb Strait,4,19,25,56188
@@ -4036,7 +4036,7 @@ transit_date,chokepoint_code,portwatch_id,portwatch_name,n_container,n_cargo,n_t
 2025-11-17,DOVER,chokepoint9,Dover Strait,31,99,151,1274484
 2025-11-17,GIBRAL,chokepoint8,Gibraltar Strait,30,90,135,936674
 2025-11-17,HORMUZ,chokepoint6,Strait of Hormuz,11,27,60,316976
-2025-11-17,MALACC,chokepoint5,Malacca Strait,59,145,214,2103886
+2025-11-17,MALACC,chokepoint5,Malacca Strait,59,146,215,2103886
 2025-11-17,ORESUN,chokepoint10,Oresund Strait,2,22,40,7160
 2025-11-17,SUEZ,chokepoint1,Suez Canal,8,27,38,242505
 2025-11-18,BABMND,chokepoint4,Bab el-Mandeb Strait,7,32,41,72101
@@ -4564,7 +4564,7 @@ transit_date,chokepoint_code,portwatch_id,portwatch_name,n_container,n_cargo,n_t
 2026-01-22,DOVER,chokepoint9,Dover Strait,32,115,184,727554
 2026-01-22,GIBRAL,chokepoint8,Gibraltar Strait,38,93,140,1164369
 2026-01-22,HORMUZ,chokepoint6,Strait of Hormuz,5,26,64,154276
-2026-01-22,MALACC,chokepoint5,Malacca Strait,81,181,275,2259972
+2026-01-22,MALACC,chokepoint5,Malacca Strait,81,182,276,2259972
 2026-01-22,ORESUN,chokepoint10,Oresund Strait,3,26,39,5110
 2026-01-22,SUEZ,chokepoint1,Suez Canal,8,25,44,137965
 2026-01-23,BABMND,chokepoint4,Bab el-Mandeb Strait,4,21,34,47504
@@ -4636,7 +4636,7 @@ transit_date,chokepoint_code,portwatch_id,portwatch_name,n_container,n_cargo,n_t
 2026-01-31,DOVER,chokepoint9,Dover Strait,16,87,148,359450
 2026-01-31,GIBRAL,chokepoint8,Gibraltar Strait,30,101,146,790848
 2026-01-31,HORMUZ,chokepoint6,Strait of Hormuz,9,30,70,234264
-2026-01-31,MALACC,chokepoint5,Malacca Strait,57,148,240,2152695
+2026-01-31,MALACC,chokepoint5,Malacca Strait,57,149,241,2152695
 2026-01-31,ORESUN,chokepoint10,Oresund Strait,3,26,34,10844
 2026-01-31,SUEZ,chokepoint1,Suez Canal,12,28,42,145891
 2026-02-01,BABMND,chokepoint4,Bab el-Mandeb Strait,1,24,37,17077
@@ -4684,7 +4684,7 @@ transit_date,chokepoint_code,portwatch_id,portwatch_name,n_container,n_cargo,n_t
 2026-02-06,DOVER,chokepoint9,Dover Strait,52,137,204,898651
 2026-02-06,GIBRAL,chokepoint8,Gibraltar Strait,30,104,156,1144245
 2026-02-06,HORMUZ,chokepoint6,Strait of Hormuz,7,26,60,75092
-2026-02-06,MALACC,chokepoint5,Malacca Strait,60,141,212,1952149
+2026-02-06,MALACC,chokepoint5,Malacca Strait,60,141,213,1952149
 2026-02-06,ORESUN,chokepoint10,Oresund Strait,8,25,38,18531
 2026-02-06,SUEZ,chokepoint1,Suez Canal,12,27,45,184805
 2026-02-07,BABMND,chokepoint4,Bab el-Mandeb Strait,5,17,30,88443
@@ -4692,7 +4692,7 @@ transit_date,chokepoint_code,portwatch_id,portwatch_name,n_container,n_cargo,n_t
 2026-02-07,DOVER,chokepoint9,Dover Strait,26,107,172,703672
 2026-02-07,GIBRAL,chokepoint8,Gibraltar Strait,19,72,105,726022
 2026-02-07,HORMUZ,chokepoint6,Strait of Hormuz,6,20,60,140362
-2026-02-07,MALACC,chokepoint5,Malacca Strait,62,171,263,1704845
+2026-02-07,MALACC,chokepoint5,Malacca Strait,62,171,262,1704845
 2026-02-07,ORESUN,chokepoint10,Oresund Strait,5,36,52,15492
 2026-02-07,SUEZ,chokepoint1,Suez Canal,7,23,48,78317
 2026-02-08,BABMND,chokepoint4,Bab el-Mandeb Strait,10,28,44,122306
@@ -4942,7 +4942,7 @@ transit_date,chokepoint_code,portwatch_id,portwatch_name,n_container,n_cargo,n_t
 2026-03-10,HORMUZ,chokepoint6,Strait of Hormuz,0,1,2,0
 2026-03-10,MALACC,chokepoint5,Malacca Strait,59,143,226,1698167
 2026-03-10,ORESUN,chokepoint10,Oresund Strait,6,38,51,6679
-2026-03-10,SUEZ,chokepoint1,Suez Canal,11,28,37,257632
+2026-03-10,SUEZ,chokepoint1,Suez Canal,11,28,37,261899
 2026-03-11,BABMND,chokepoint4,Bab el-Mandeb Strait,4,20,40,61558
 2026-03-11,BOSPOR,chokepoint3,Bosporus Strait,10,67,92,86769
 2026-03-11,DOVER,chokepoint9,Dover Strait,27,110,185,844986
@@ -5068,7 +5068,7 @@ transit_date,chokepoint_code,portwatch_id,portwatch_name,n_container,n_cargo,n_t
 2026-03-26,DOVER,chokepoint9,Dover Strait,19,87,137,447328
 2026-03-26,GIBRAL,chokepoint8,Gibraltar Strait,33,91,145,950111
 2026-03-26,HORMUZ,chokepoint6,Strait of Hormuz,0,4,4,0
-2026-03-26,MALACC,chokepoint5,Malacca Strait,50,138,207,1340394
+2026-03-26,MALACC,chokepoint5,Malacca Strait,50,139,208,1340394
 2026-03-26,ORESUN,chokepoint10,Oresund Strait,8,31,44,17315
 2026-03-26,SUEZ,chokepoint1,Suez Canal,7,22,41,147773
 2026-03-27,BABMND,chokepoint4,Bab el-Mandeb Strait,6,23,37,80489
@@ -5076,7 +5076,7 @@ transit_date,chokepoint_code,portwatch_id,portwatch_name,n_container,n_cargo,n_t
 2026-03-27,DOVER,chokepoint9,Dover Strait,38,116,186,1168676
 2026-03-27,GIBRAL,chokepoint8,Gibraltar Strait,26,95,143,967690
 2026-03-27,HORMUZ,chokepoint6,Strait of Hormuz,0,2,2,0
-2026-03-27,MALACC,chokepoint5,Malacca Strait,62,148,217,2261059
+2026-03-27,MALACC,chokepoint5,Malacca Strait,62,147,216,2261059
 2026-03-27,ORESUN,chokepoint10,Oresund Strait,1,21,27,1595
 2026-03-27,SUEZ,chokepoint1,Suez Canal,14,29,42,282626
 2026-03-28,BABMND,chokepoint4,Bab el-Mandeb Strait,9,24,36,82786
@@ -5220,7 +5220,7 @@ transit_date,chokepoint_code,portwatch_id,portwatch_name,n_container,n_cargo,n_t
 2026-04-14,DOVER,chokepoint9,Dover Strait,32,98,154,1248081
 2026-04-14,GIBRAL,chokepoint8,Gibraltar Strait,27,87,145,556404
 2026-04-14,HORMUZ,chokepoint6,Strait of Hormuz,1,2,5,52152
-2026-04-14,MALACC,chokepoint5,Malacca Strait,49,134,221,1936312
+2026-04-14,MALACC,chokepoint5,Malacca Strait,48,133,220,1932939
 2026-04-14,ORESUN,chokepoint10,Oresund Strait,6,33,40,12538
 2026-04-14,SUEZ,chokepoint1,Suez Canal,8,23,35,97166
 2026-04-15,BABMND,chokepoint4,Bab el-Mandeb Strait,10,25,41,137311
@@ -5298,7 +5298,7 @@ transit_date,chokepoint_code,portwatch_id,portwatch_name,n_container,n_cargo,n_t
 2026-04-24,BABMND,chokepoint4,Bab el-Mandeb Strait,9,31,47,218942
 2026-04-24,BOSPOR,chokepoint3,Bosporus Strait,16,93,120,92918
 2026-04-24,DOVER,chokepoint9,Dover Strait,38,135,200,1153594
-2026-04-24,GIBRAL,chokepoint8,Gibraltar Strait,36,96,144,1500677
+2026-04-24,GIBRAL,chokepoint8,Gibraltar Strait,36,96,144,1508093
 2026-04-24,HORMUZ,chokepoint6,Strait of Hormuz,0,4,6,0
 2026-04-24,MALACC,chokepoint5,Malacca Strait,63,142,214,2167965
 2026-04-24,ORESUN,chokepoint10,Oresund Strait,1,30,43,1227
@@ -6039,22 +6039,22 @@ transit_date,chokepoint_code,portwatch_id,portwatch_name,n_container,n_cargo,n_t
 2026-07-25,MALACC,chokepoint5,Malacca Strait,55,129,207,1358239
 2026-07-25,ORESUN,chokepoint10,Oresund Strait,8,39,45,17149
 2026-07-25,SUEZ,chokepoint1,Suez Canal,9,20,37,171685
-2026-07-26,BABMND,chokepoint4,Bab el-Mandeb Strait,5,16,22,84423
-2026-07-26,BOSPOR,chokepoint3,Bosporus Strait,6,52,64,45990
-2026-07-26,DOVER,chokepoint9,Dover Strait,39,93,153,883006
-2026-07-26,GIBRAL,chokepoint8,Gibraltar Strait,35,87,131,910049
+2026-07-26,BABMND,chokepoint4,Bab el-Mandeb Strait,4,14,20,69093
+2026-07-26,BOSPOR,chokepoint3,Bosporus Strait,6,47,57,45990
+2026-07-26,DOVER,chokepoint9,Dover Strait,36,85,140,818445
+2026-07-26,GIBRAL,chokepoint8,Gibraltar Strait,31,79,117,718702
 2026-07-26,HORMUZ,chokepoint6,Strait of Hormuz,0,1,3,0
-2026-07-26,MALACC,chokepoint5,Malacca Strait,60,158,236,2060362
-2026-07-26,ORESUN,chokepoint10,Oresund Strait,5,28,41,9268
-2026-07-26,SUEZ,chokepoint1,Suez Canal,7,26,42,184233
-2026-07-27,BABMND,chokepoint4,Bab el-Mandeb Strait,3,18,30,48281
-2026-07-27,BOSPOR,chokepoint3,Bosporus Strait,13,59,75,68140
-2026-07-27,DOVER,chokepoint9,Dover Strait,36,94,145,854093
-2026-07-27,GIBRAL,chokepoint8,Gibraltar Strait,34,89,136,1065250
+2026-07-26,MALACC,chokepoint5,Malacca Strait,57,146,221,1974873
+2026-07-26,ORESUN,chokepoint10,Oresund Strait,4,27,39,8165
+2026-07-26,SUEZ,chokepoint1,Suez Canal,6,22,37,180460
+2026-07-27,BABMND,chokepoint4,Bab el-Mandeb Strait,4,20,32,63611
+2026-07-27,BOSPOR,chokepoint3,Bosporus Strait,13,63,81,68140
+2026-07-27,DOVER,chokepoint9,Dover Strait,37,96,149,889749
+2026-07-27,GIBRAL,chokepoint8,Gibraltar Strait,36,95,145,1080204
 2026-07-27,HORMUZ,chokepoint6,Strait of Hormuz,0,5,5,0
-2026-07-27,MALACC,chokepoint5,Malacca Strait,58,163,254,1594910
-2026-07-27,ORESUN,chokepoint10,Oresund Strait,6,23,31,10612
-2026-07-27,SUEZ,chokepoint1,Suez Canal,16,35,46,446754
+2026-07-27,MALACC,chokepoint5,Malacca Strait,61,175,269,1680399
+2026-07-27,ORESUN,chokepoint10,Oresund Strait,7,24,32,11715
+2026-07-27,SUEZ,chokepoint1,Suez Canal,17,39,51,450526
 2026-07-28,BABMND,chokepoint4,Bab el-Mandeb Strait,1,20,33,15581
 2026-07-28,BOSPOR,chokepoint3,Bosporus Strait,8,38,51,65164
 2026-07-28,DOVER,chokepoint9,Dover Strait,32,101,148,695273
@@ -6148,7 +6148,7 @@ transit_date,chokepoint_code,portwatch_id,portwatch_name,n_container,n_cargo,n_t
 2026-08-08,DOVER,chokepoint9,Dover Strait,37,114,167,1208520
 2026-08-08,GIBRAL,chokepoint8,Gibraltar Strait,33,96,144,824422
 2026-08-08,HORMUZ,chokepoint6,Strait of Hormuz,3,8,10,10556
-2026-08-08,MALACC,chokepoint5,Malacca Strait,56,174,240,1693852
+2026-08-08,MALACC,chokepoint5,Malacca Strait,56,173,239,1693852
 2026-08-08,ORESUN,chokepoint10,Oresund Strait,8,45,57,13371
 2026-08-08,SUEZ,chokepoint1,Suez Canal,12,20,35,471425
 2026-08-09,BABMND,chokepoint4,Bab el-Mandeb Strait,10,25,34,172868
@@ -6156,7 +6156,7 @@ transit_date,chokepoint_code,portwatch_id,portwatch_name,n_container,n_cargo,n_t
 2026-08-09,DOVER,chokepoint9,Dover Strait,45,117,168,1318300
 2026-08-09,GIBRAL,chokepoint8,Gibraltar Strait,24,76,112,502115
 2026-08-09,HORMUZ,chokepoint6,Strait of Hormuz,0,3,3,0
-2026-08-09,MALACC,chokepoint5,Malacca Strait,65,134,206,2223847
+2026-08-09,MALACC,chokepoint5,Malacca Strait,65,135,207,2223847
 2026-08-09,ORESUN,chokepoint10,Oresund Strait,4,31,40,10597
 2026-08-09,SUEZ,chokepoint1,Suez Canal,13,32,48,460193
 2026-08-10,BABMND,chokepoint4,Bab el-Mandeb Strait,4,16,29,68271
@@ -6271,3 +6271,59 @@ transit_date,chokepoint_code,portwatch_id,portwatch_name,n_container,n_cargo,n_t
 2026-08-23,MALACC,chokepoint5,Malacca Strait,62,127,192,2092485
 2026-08-23,ORESUN,chokepoint10,Oresund Strait,3,37,45,3754
 2026-08-23,SUEZ,chokepoint1,Suez Canal,6,24,37,317054
+2026-08-24,BABMND,chokepoint4,Bab el-Mandeb Strait,4,24,36,94272
+2026-08-24,BOSPOR,chokepoint3,Bosporus Strait,9,53,69,67357
+2026-08-24,DOVER,chokepoint9,Dover Strait,42,98,152,1047583
+2026-08-24,GIBRAL,chokepoint8,Gibraltar Strait,38,94,134,840197
+2026-08-24,HORMUZ,chokepoint6,Strait of Hormuz,0,1,3,0
+2026-08-24,MALACC,chokepoint5,Malacca Strait,58,148,209,1866764
+2026-08-24,ORESUN,chokepoint10,Oresund Strait,4,34,42,9860
+2026-08-24,SUEZ,chokepoint1,Suez Canal,10,31,46,390981
+2026-08-25,BABMND,chokepoint4,Bab el-Mandeb Strait,6,15,25,155497
+2026-08-25,BOSPOR,chokepoint3,Bosporus Strait,3,36,47,30635
+2026-08-25,DOVER,chokepoint9,Dover Strait,36,102,147,896599
+2026-08-25,GIBRAL,chokepoint8,Gibraltar Strait,31,81,126,888717
+2026-08-25,HORMUZ,chokepoint6,Strait of Hormuz,0,0,4,0
+2026-08-25,MALACC,chokepoint5,Malacca Strait,61,135,195,1812514
+2026-08-25,ORESUN,chokepoint10,Oresund Strait,7,34,41,7089
+2026-08-25,SUEZ,chokepoint1,Suez Canal,13,32,51,619968
+2026-08-26,BABMND,chokepoint4,Bab el-Mandeb Strait,4,17,26,158700
+2026-08-26,BOSPOR,chokepoint3,Bosporus Strait,9,51,72,34418
+2026-08-26,DOVER,chokepoint9,Dover Strait,26,107,158,465974
+2026-08-26,GIBRAL,chokepoint8,Gibraltar Strait,35,79,123,1015552
+2026-08-26,HORMUZ,chokepoint6,Strait of Hormuz,0,3,5,0
+2026-08-26,MALACC,chokepoint5,Malacca Strait,65,141,202,1651898
+2026-08-26,ORESUN,chokepoint10,Oresund Strait,2,29,42,3314
+2026-08-26,SUEZ,chokepoint1,Suez Canal,7,22,41,150882
+2026-08-27,BABMND,chokepoint4,Bab el-Mandeb Strait,5,17,21,66685
+2026-08-27,BOSPOR,chokepoint3,Bosporus Strait,9,51,67,66585
+2026-08-27,DOVER,chokepoint9,Dover Strait,45,112,171,998627
+2026-08-27,GIBRAL,chokepoint8,Gibraltar Strait,30,80,120,996528
+2026-08-27,HORMUZ,chokepoint6,Strait of Hormuz,0,0,2,0
+2026-08-27,MALACC,chokepoint5,Malacca Strait,44,127,191,1257025
+2026-08-27,ORESUN,chokepoint10,Oresund Strait,6,37,41,11167
+2026-08-27,SUEZ,chokepoint1,Suez Canal,6,21,33,149331
+2026-08-28,BABMND,chokepoint4,Bab el-Mandeb Strait,5,20,27,36036
+2026-08-28,BOSPOR,chokepoint3,Bosporus Strait,4,33,57,27654
+2026-08-28,DOVER,chokepoint9,Dover Strait,28,104,165,1164927
+2026-08-28,GIBRAL,chokepoint8,Gibraltar Strait,25,82,127,963104
+2026-08-28,HORMUZ,chokepoint6,Strait of Hormuz,0,7,7,0
+2026-08-28,MALACC,chokepoint5,Malacca Strait,59,134,202,2009668
+2026-08-28,ORESUN,chokepoint10,Oresund Strait,5,31,40,10757
+2026-08-28,SUEZ,chokepoint1,Suez Canal,14,29,39,363510
+2026-08-29,BABMND,chokepoint4,Bab el-Mandeb Strait,2,12,20,22294
+2026-08-29,BOSPOR,chokepoint3,Bosporus Strait,9,45,60,72102
+2026-08-29,DOVER,chokepoint9,Dover Strait,42,108,152,1158631
+2026-08-29,GIBRAL,chokepoint8,Gibraltar Strait,39,90,133,843490
+2026-08-29,HORMUZ,chokepoint6,Strait of Hormuz,0,2,3,0
+2026-08-29,MALACC,chokepoint5,Malacca Strait,52,140,206,1375806
+2026-08-29,ORESUN,chokepoint10,Oresund Strait,3,32,47,6714
+2026-08-29,SUEZ,chokepoint1,Suez Canal,11,22,38,301736
+2026-08-30,BABMND,chokepoint4,Bab el-Mandeb Strait,3,23,29,49573
+2026-08-30,BOSPOR,chokepoint3,Bosporus Strait,4,37,47,26318
+2026-08-30,DOVER,chokepoint9,Dover Strait,29,97,147,732047
+2026-08-30,GIBRAL,chokepoint8,Gibraltar Strait,36,90,123,728016
+2026-08-30,HORMUZ,chokepoint6,Strait of Hormuz,0,4,6,0
+2026-08-30,MALACC,chokepoint5,Malacca Strait,53,149,219,1717816
+2026-08-30,ORESUN,chokepoint10,Oresund Strait,7,40,54,19745
+2026-08-30,SUEZ,chokepoint1,Suez Canal,12,24,53,345763
