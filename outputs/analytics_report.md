@@ -1,6 +1,6 @@
 # Freight Network Analytics — Query Results
 
-*Generated 2026-10-20 20:23 · real data through **2026-10-16***
+*Generated 2026-10-27 21:11 · real data through **2026-10-16***
 
 <details><summary><b>Port codes used in this report</b></summary>
 
@@ -78,8 +78,8 @@
 
 | stage                                | location   |   observations |   median_days |   p90_days |   worst_case_days |   p90_to_median_ratio |
 |:-------------------------------------|:-----------|---------------:|--------------:|-----------:|------------------:|----------------------:|
-| DEPARTED → TRANSSHIPMENT_IN          | NLRTM      |            728 |          7.96 |      28.08 |              28.4 |                   3.5 |
-| DEPARTED → ARRIVED                   | GBFXT      |             90 |         27.58 |      27.88 |              27.9 |                   1   |
+| DEPARTED → TRANSSHIPMENT_IN          | NLRTM      |            726 |          7.96 |      28.08 |              28.4 |                   3.5 |
+| DEPARTED → ARRIVED                   | GBFXT      |             91 |         27.58 |      27.88 |              27.9 |                   1   |
 | TRANSSHIPMENT_OUT → ARRIVED          | NLRTM      |          1,738 |         13.08 |      18.5  |              32.7 |                   1.4 |
 | TRANSSHIPMENT_OUT → ARRIVED          | DEHAM      |            969 |          9.67 |      17.13 |              21.8 |                   1.8 |
 | TRANSSHIPMENT_OUT → ARRIVED          | CNSHA      |            311 |         14.75 |      16.96 |              20.7 |                   1.1 |
@@ -87,9 +87,9 @@
 | TRANSSHIPMENT_OUT → ARRIVED          | USLGB      |            208 |         12.6  |      14.73 |              17.3 |                   1.2 |
 | DEPARTED → ARRIVED                   | USNYC      |            418 |         10.54 |      12.54 |              15.6 |                   1.2 |
 | DEPARTED → TRANSSHIPMENT_IN          | TRMER      |            582 |          3.08 |       9.04 |               9.4 |                   2.9 |
-| DEPARTED → ARRIVED                   | DEHAM      |             68 |          3.92 |       7.75 |               7.9 |                   2   |
+| DEPARTED → ARRIVED                   | DEHAM      |             69 |          3.92 |       7.75 |               7.9 |                   2   |
 | BOOKED → CARGO_RECEIVED              | SGSIN      |            210 |          3.23 |       6.04 |               7.5 |                   1.9 |
-| TRANSSHIPMENT_IN → TRANSSHIPMENT_OUT | NLRTM      |            582 |          1.25 |       6    |              13.7 |                   4.8 |
+| TRANSSHIPMENT_IN → TRANSSHIPMENT_OUT | NLRTM      |            583 |          1.25 |       6    |              13.7 |                   4.8 |
 | DEPARTED → TRANSSHIPMENT_IN          | SGSIN      |          1,437 |          4.83 |       5.92 |               6.4 |                   1.2 |
 | BOOKED → CARGO_RECEIVED              | TRMER      |            306 |          3.33 |       5.79 |               8.5 |                   1.7 |
 | BOOKED → CARGO_RECEIVED              | EGALY      |            204 |          3.13 |       5.61 |               7.6 |                   1.8 |
@@ -102,11 +102,11 @@
 | segment              |   customers |   shipments |      revenue_usd |   revenue_share_pct |   class_a_customers |   class_b_customers |   class_c_customers |
 |:---------------------|------------:|------------:|-----------------:|--------------------:|--------------------:|--------------------:|--------------------:|
 | Champion             |          16 |        2658 |      4.63929e+06 |                52.4 |                  16 |                   0 |                   0 |
-| Core                 |          22 |         924 |      1.44636e+06 |                16.3 |                   6 |                   9 |                   7 |
+| Core                 |          23 |         958 |      1.49767e+06 |                16.9 |                   6 |                  10 |                   7 |
 | At Risk (high value) |          11 |         613 |      1.11686e+06 |                12.6 |                  11 |                   0 |                   0 |
-| Loyal                |          12 |         441 | 750756           |                 8.5 |                   7 |                   5 |                   0 |
-| Dormant              |          15 |         447 | 731413           |                 8.3 |                   3 |                   9 |                   3 |
-| New / Developing     |           4 |         117 | 177227           |                 2   |                   0 |                   2 |                   2 |
+| Dormant              |          14 |         413 | 680107           |                 7.7 |                   3 |                   8 |                   3 |
+| Loyal                |          10 |         373 | 635894           |                 7.2 |                   7 |                   3 |                   0 |
+| New / Developing     |           6 |         185 | 292089           |                 3.3 |                   0 |                   4 |                   2 |
 
 
 ## 05_cohort_retention
