@@ -1,6 +1,6 @@
 # Freight Network Analytics — Query Results
 
-*Generated 2026-10-27 21:11 · real data through **2026-10-16***
+*Generated 2026-11-03 22:14 · real data through **2026-10-16***
 
 <details><summary><b>Port codes used in this report</b></summary>
 
@@ -78,8 +78,8 @@
 
 | stage                                | location   |   observations |   median_days |   p90_days |   worst_case_days |   p90_to_median_ratio |
 |:-------------------------------------|:-----------|---------------:|--------------:|-----------:|------------------:|----------------------:|
-| DEPARTED → TRANSSHIPMENT_IN          | NLRTM      |            726 |          7.96 |      28.08 |              28.4 |                   3.5 |
-| DEPARTED → ARRIVED                   | GBFXT      |             91 |         27.58 |      27.88 |              27.9 |                   1   |
+| DEPARTED → TRANSSHIPMENT_IN          | NLRTM      |            727 |          7.96 |      28.08 |              28.4 |                   3.5 |
+| DEPARTED → ARRIVED                   | GBFXT      |             90 |         27.58 |      27.88 |              27.9 |                   1   |
 | TRANSSHIPMENT_OUT → ARRIVED          | NLRTM      |          1,738 |         13.08 |      18.5  |              32.7 |                   1.4 |
 | TRANSSHIPMENT_OUT → ARRIVED          | DEHAM      |            969 |          9.67 |      17.13 |              21.8 |                   1.8 |
 | TRANSSHIPMENT_OUT → ARRIVED          | CNSHA      |            311 |         14.75 |      16.96 |              20.7 |                   1.1 |
@@ -102,11 +102,11 @@
 | segment              |   customers |   shipments |      revenue_usd |   revenue_share_pct |   class_a_customers |   class_b_customers |   class_c_customers |
 |:---------------------|------------:|------------:|-----------------:|--------------------:|--------------------:|--------------------:|--------------------:|
 | Champion             |          16 |        2658 |      4.63929e+06 |                52.4 |                  16 |                   0 |                   0 |
-| Core                 |          23 |         958 |      1.49767e+06 |                16.9 |                   6 |                  10 |                   7 |
+| Core                 |          22 |         925 |      1.44222e+06 |                16.3 |                   6 |                   9 |                   7 |
 | At Risk (high value) |          11 |         613 |      1.11686e+06 |                12.6 |                  11 |                   0 |                   0 |
-| Dormant              |          14 |         413 | 680107           |                 7.7 |                   3 |                   8 |                   3 |
-| Loyal                |          10 |         373 | 635894           |                 7.2 |                   7 |                   3 |                   0 |
-| New / Developing     |           6 |         185 | 292089           |                 3.3 |                   0 |                   4 |                   2 |
+| Dormant              |          15 |         447 | 731413           |                 8.3 |                   3 |                   9 |                   3 |
+| Loyal                |          10 |         372 | 626631           |                 7.1 |                   6 |                   4 |                   0 |
+| New / Developing     |           6 |         185 | 305497           |                 3.4 |                   1 |                   3 |                   2 |
 
 
 ## 05_cohort_retention
