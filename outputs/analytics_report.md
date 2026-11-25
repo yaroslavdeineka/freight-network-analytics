@@ -1,6 +1,6 @@
 # Freight Network Analytics — Query Results
 
-*Generated 2026-11-17 23:47 · real data through **2026-11-13***
+*Generated 2026-11-25 01:17 · real data through **2026-11-20***
 
 <details><summary><b>Port codes used in this report</b></summary>
 
@@ -78,8 +78,8 @@
 
 | stage                                | location   |   observations |   median_days |   p90_days |   worst_case_days |   p90_to_median_ratio |
 |:-------------------------------------|:-----------|---------------:|--------------:|-----------:|------------------:|----------------------:|
-| DEPARTED → TRANSSHIPMENT_IN          | NLRTM      |            728 |          7.96 |      28.08 |              28.4 |                   3.5 |
-| DEPARTED → ARRIVED                   | GBFXT      |             90 |         27.58 |      27.88 |              27.9 |                   1   |
+| DEPARTED → TRANSSHIPMENT_IN          | NLRTM      |            727 |          7.96 |      28.08 |              28.4 |                   3.5 |
+| DEPARTED → ARRIVED                   | GBFXT      |             91 |         27.58 |      27.88 |              27.9 |                   1   |
 | TRANSSHIPMENT_OUT → ARRIVED          | NLRTM      |          1,738 |         13.08 |      18.5  |              32.7 |                   1.4 |
 | TRANSSHIPMENT_OUT → ARRIVED          | DEHAM      |            969 |          9.67 |      17.13 |              21.8 |                   1.8 |
 | TRANSSHIPMENT_OUT → ARRIVED          | CNSHA      |            311 |         14.75 |      16.96 |              20.7 |                   1.1 |
@@ -268,22 +268,22 @@
 
 | port_name   | region   | data_through        |   days_observed |   ctr_calls_per_day |   ctr_calls_yoy_pct |   cargo_kt_per_day |   cargo_yoy_pct |
 |:------------|:---------|:--------------------|----------------:|--------------------:|--------------------:|-------------------:|----------------:|
-| Nhava Sheva | Asia     | 2026-11-13 00:00:00 |              90 |                 7.8 |               108.3 |              486.3 |            41.5 |
-| Mersin      | MEA      | 2026-11-13 00:00:00 |              90 |                 2.9 |               -27.9 |              102.1 |            25.3 |
-| Long Beach  | Americas | 2026-11-13 00:00:00 |              90 |                 5.7 |                 6   |              607   |            11.1 |
-| Gdansk      | Europe   | 2026-11-13 00:00:00 |              90 |                 2.4 |               -14.3 |              272.1 |             9.3 |
-| Busan       | Asia     | 2026-11-13 00:00:00 |              90 |                28.3 |               -11.8 |              408.5 |             4.4 |
-| Shenzhen    | Asia     | 2026-11-13 00:00:00 |              90 |                 8.3 |               -10.2 |              119.7 |             1.7 |
-| New York    | Americas | 2026-11-13 00:00:00 |              90 |                 5.8 |               -11.9 |              282.9 |            -1.3 |
-| Rotterdam   | Europe   | 2026-11-13 00:00:00 |              90 |                17.5 |                -1.3 |              942.9 |            -4.3 |
-| Singapore   | Asia     | 2026-11-13 00:00:00 |              90 |                35.1 |               -12.5 |             2255.2 |            -5.9 |
-| Santos      | Americas | 2026-11-13 00:00:00 |              90 |                 6   |                -5.9 |              413.3 |            -7.4 |
-| Hamburg     | Europe   | 2026-11-13 00:00:00 |              90 |                 8.7 |                -8   |              312.5 |           -12.8 |
-| Alexandria  | MEA      | 2026-11-13 00:00:00 |              90 |                 3.3 |               -18.3 |              130.9 |           -17   |
-| Felixstowe  | Europe   | 2026-11-13 00:00:00 |              90 |                 2   |               -20.7 |               56.5 |           -22.1 |
-| Shanghai    | Asia     | 2026-11-13 00:00:00 |              90 |                27.7 |               -25.6 |             1341.6 |           -23.2 |
-| Jebel Ali   | MEA      | 2026-11-13 00:00:00 |              90 |                 1.7 |               -87.8 |              102.9 |           -84.5 |
-| Odesa       | Europe   | 2026-11-13 00:00:00 |              90 |                 0   |                 —   |                0   |          -100   |
+| Nhava Sheva | Asia     | 2026-11-20 00:00:00 |              90 |                 7.7 |               105.9 |              495.6 |            44.6 |
+| Mersin      | MEA      | 2026-11-20 00:00:00 |              90 |                 2.9 |               -28.2 |              102.3 |            24.5 |
+| Gdansk      | Europe   | 2026-11-20 00:00:00 |              90 |                 2.4 |               -14.5 |              274.7 |             9.3 |
+| Long Beach  | Americas | 2026-11-20 00:00:00 |              90 |                 5.5 |                 4.8 |              578.8 |             7   |
+| Busan       | Asia     | 2026-11-20 00:00:00 |              90 |                28.3 |               -11.8 |              412.6 |             5.8 |
+| New York    | Americas | 2026-11-20 00:00:00 |              90 |                 5.8 |               -11.7 |              294.1 |             5   |
+| Shenzhen    | Asia     | 2026-11-20 00:00:00 |              90 |                 8.4 |               -10   |              119.8 |             0.7 |
+| Singapore   | Asia     | 2026-11-20 00:00:00 |              90 |                34.8 |               -13.2 |             2299.5 |            -3.3 |
+| Rotterdam   | Europe   | 2026-11-20 00:00:00 |              90 |                17.4 |                -1.2 |              935.2 |            -4.4 |
+| Santos      | Americas | 2026-11-20 00:00:00 |              90 |                 6   |                -4.9 |              404.1 |            -8.5 |
+| Hamburg     | Europe   | 2026-11-20 00:00:00 |              90 |                 8.7 |                -8.1 |              318.7 |           -11.2 |
+| Alexandria  | MEA      | 2026-11-20 00:00:00 |              90 |                 3.3 |               -19.9 |              132.2 |           -15.3 |
+| Felixstowe  | Europe   | 2026-11-20 00:00:00 |              90 |                 2   |               -21.3 |               58.6 |           -19.9 |
+| Shanghai    | Asia     | 2026-11-20 00:00:00 |              90 |                27.9 |               -25   |             1332.1 |           -23.7 |
+| Jebel Ali   | MEA      | 2026-11-20 00:00:00 |              90 |                 1.8 |               -87.6 |              103   |           -84.5 |
+| Odesa       | Europe   | 2026-11-20 00:00:00 |              90 |                 0   |                 —   |                0   |          -100   |
 
 
 ## 12 · NETWORK EXPOSURE TO REAL PORT TRENDS — SYNTHETIC ⋈ REAL
@@ -292,21 +292,21 @@
 
 | port_name   | region   |   shipments_180d |   cbm_180d |   share_of_book_pct |   real_calls_yoy_pct | real_world_signal            |
 |:------------|:---------|-----------------:|-----------:|--------------------:|---------------------:|:-----------------------------|
-| Rotterdam   | Europe   |              794 |     15,123 |                21.9 |                 -1.3 | stable                       |
-| Shanghai    | Asia     |              657 |     11,923 |                17.3 |                -25.6 | !! declining traffic         |
-| Hamburg     | Europe   |              442 |      8,437 |                12.2 |                 -8   | !  softening                 |
+| Rotterdam   | Europe   |              794 |     15,123 |                21.9 |                 -1.2 | stable                       |
+| Shanghai    | Asia     |              657 |     11,923 |                17.3 |                -25   | !! declining traffic         |
+| Hamburg     | Europe   |              442 |      8,437 |                12.2 |                 -8.1 | !  softening                 |
 | Odesa       | Europe   |              448 |      7,974 |                11.6 |                  —   | baseline too short           |
-| Long Beach  | Americas |              245 |      4,462 |                 6.5 |                  6   | stable                       |
-| Shenzhen    | Asia     |              177 |      3,387 |                 4.9 |                -10.2 | !! declining traffic         |
-| Nhava Sheva | Asia     |              145 |      2,919 |                 4.2 |                108.3 | ▲ surging (congestion watch) |
-| New York    | Americas |              161 |      2,868 |                 4.2 |                -11.9 | !! declining traffic         |
-| Felixstowe  | Europe   |              127 |      2,492 |                 3.6 |                -20.7 | !! declining traffic         |
+| Long Beach  | Americas |              245 |      4,462 |                 6.5 |                  4.8 | stable                       |
+| Shenzhen    | Asia     |              177 |      3,387 |                 4.9 |                -10   | !! declining traffic         |
+| Nhava Sheva | Asia     |              145 |      2,919 |                 4.2 |                105.9 | ▲ surging (congestion watch) |
+| New York    | Americas |              161 |      2,868 |                 4.2 |                -11.7 | !! declining traffic         |
+| Felixstowe  | Europe   |              127 |      2,492 |                 3.6 |                -21.3 | !! declining traffic         |
 | Busan       | Asia     |               96 |      2,176 |                 3.2 |                -11.8 | !! declining traffic         |
-| Mersin      | MEA      |              109 |      2,061 |                 3   |                -27.9 | !! declining traffic         |
-| Gdansk      | Europe   |               80 |      1,521 |                 2.2 |                -14.3 | !! declining traffic         |
-| Alexandria  | MEA      |               80 |      1,521 |                 2.2 |                -18.3 | !! declining traffic         |
-| Singapore   | Asia     |               66 |      1,264 |                 1.8 |                -12.5 | !! declining traffic         |
-| Jebel Ali   | MEA      |               45 |        832 |                 1.2 |                -87.8 | !! declining traffic         |
+| Mersin      | MEA      |              109 |      2,061 |                 3   |                -28.2 | !! declining traffic         |
+| Gdansk      | Europe   |               80 |      1,521 |                 2.2 |                -14.5 | !! declining traffic         |
+| Alexandria  | MEA      |               80 |      1,521 |                 2.2 |                -19.9 | !! declining traffic         |
+| Singapore   | Asia     |               66 |      1,264 |                 1.8 |                -13.2 | !! declining traffic         |
+| Jebel Ali   | MEA      |               45 |        832 |                 1.2 |                -87.6 | !! declining traffic         |
 
 
 ## 13 · CHOKEPOINT EXPOSURE — HOW MUCH OF OUR BOOK SAILS THROUGH EACH STRAIT?
@@ -315,14 +315,14 @@
 
 | chokepoint           |   lanes |   shipments_180d |   cbm_180d |   share_of_book_pct |   transits_per_day |   transits_yoy_pct | real_world_signal                      |
 |:---------------------|--------:|-----------------:|-----------:|--------------------:|-------------------:|-------------------:|:---------------------------------------|
-| Dover Strait         |       9 |             1287 |     24,585 |                71.3 |               35.7 |               -0.7 | stable                                 |
-| Gibraltar Strait     |       8 |             1126 |     21,717 |                63   |               31   |               -4.2 | stable                                 |
-| Bab el-Mandeb Strait |       7 |              941 |     18,038 |                52.3 |                5.3 |              -17.8 | !  transits falling                    |
-| Suez Canal           |       7 |              941 |     18,038 |                52.3 |               12   |               23.5 | ▲ transits rising                      |
-| Malacca Strait       |       5 |              751 |     14,288 |                41.4 |               59.5 |               -4.2 | stable                                 |
-| Bosporus Strait      |       3 |              292 |      4,985 |                14.5 |                5.9 |              -41.2 | !! transits collapsing — re-route risk |
-| Oresund Strait       |       2 |              236 |      4,510 |                13.1 |                4.7 |              -16.5 | !  transits falling                    |
-| Strait of Hormuz     |       2 |              190 |      3,750 |                10.9 |                0.3 |              -98.3 | !! transits collapsing — re-route risk |
+| Dover Strait         |       9 |             1287 |     24,585 |                71.3 |               35.5 |               -1.1 | stable                                 |
+| Gibraltar Strait     |       8 |             1126 |     21,717 |                63   |               31.4 |               -3.1 | stable                                 |
+| Suez Canal           |       7 |              941 |     18,038 |                52.3 |               12.5 |               30.1 | ▲ transits rising                      |
+| Bab el-Mandeb Strait |       7 |              941 |     18,038 |                52.3 |                5.3 |              -16.9 | !  transits falling                    |
+| Malacca Strait       |       5 |              751 |     14,288 |                41.4 |               59.6 |               -4.4 | stable                                 |
+| Bosporus Strait      |       3 |              292 |      4,985 |                14.5 |                5.7 |              -42.7 | !! transits collapsing — re-route risk |
+| Oresund Strait       |       2 |              236 |      4,510 |                13.1 |                4.6 |              -17.3 | !  transits falling                    |
+| Strait of Hormuz     |       2 |              190 |      3,750 |                10.9 |                0.3 |              -98.2 | !! transits collapsing — re-route risk |
 
 
 ## 13_door_to_door_routing
